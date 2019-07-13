@@ -1,7 +1,7 @@
 /* 
-* DC_motor_class.h
+* DCmotor.h
 *
-* Created: 15.03.2019 18:47:58
+* Created: 13.07.2019 21:10:08
 * Author: Woocheck
 */
 
@@ -23,32 +23,34 @@ private:
 	volatile int  pinEnable;
 
 	volatile Direction direction = Direction::forward;
-	volatile int speed;
+	volatile int speed { 0 };
 
 
 public:
 	
 	DcMotor() = delete;
-	DcMotor(int a, int b, int enable):
-					pinA {a},
-					pinB {b},
-					pinEnable {enable} {
-						
+	DcMotor( int a, int b, int enable ):
+					pinA { a },
+					pinB { b },
+					pinEnable { enable } 
+	{					
 		wiringPiSetup();
-		pinMode (pinA, OUTPUT);
-		pinMode (pinB, OUTPUT) ;
-		softPwmCreate(pinEnable, 100, 100);
+		pinMode ( pinA, OUTPUT );
+		pinMode ( pinB, OUTPUT ) ;
+		softPwmCreate( pinEnable, 100, 100 );
 	};
 	
 	~DcMotor(); 
 				   						
-	void setSpeed(int demanded_speed);
-	void setDirection(Direction demandedDirection);
-	void start();
-	void stop();
-	void control(int demanded_speed);
+	void control( int demanded_speed );
 	
 private:
+
+	void setSpeed( int demanded_speed );
+	void setDirection( Direction demandedDirection );
+	void start();
+	void stop();
+
 	DcMotor( const DcMotor &c );
 	DcMotor& operator=( const DcMotor &c );
 

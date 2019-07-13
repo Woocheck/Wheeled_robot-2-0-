@@ -1,7 +1,7 @@
 /* 
-* DC_motor_class.cpp
+* DCmotor.h
 *
-* Created: 15.03.2019 18:47:58
+* Created: 13.07.2019 21:10:08
 * Author: Woocheck
 */
 
@@ -59,17 +59,21 @@ void DcMotor::stop()
 {
 	digitalWrite ( pinA, LOW ); 
 	digitalWrite ( pinB, LOW );
+	setSpeed( 0 );
 }
 
 
 void DcMotor::control( int demandedSpeed )
 {
-	if( demandedSpeed >= 0 ) {
+	if( demandedSpeed >= 0 ) 
+	{
 		setDirection( Direction::forward );
 	}
-	else {
+	else 
+	{
 		setDirection( Direction::backward );
 	} 
+
 	setSpeed( std::abs( demandedSpeed ) ); 
 	start();
 }
