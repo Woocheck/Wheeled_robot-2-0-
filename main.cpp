@@ -81,22 +81,17 @@ int main(void)
 		{
 		  if(isPassed20ms())
 		  {
-				regulationInLineFollowerMode();	
+				lineDetector.readSensorsState();
+
+	      lineFollowerControl.setSensorsState( lineDetector.getSensorsState() );
+        lineFollowerControl.calculateError();
+  
+	      int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
+        lineFollowerControl.setDirection( correction );	
 		  }
 		}
   }
 }
-
-void regulationInLineFollowerMode()
-{
-  lineDetector.readSensorsState();
-
-	lineFollowerControl.setSensorsState( lineDetector.getSensorsState() );
-  lineFollowerControl.calculateError();
-  
-	int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
-  lineFollowerControl.setDirection( correction );
-};
 
  bool isPassed20ms()
  {
@@ -111,14 +106,12 @@ void regulationInLineFollowerMode()
 
 void readRightEncoderChange()
 {
-  // drive.readRightEncoder();
-  // drive.printEncodersNumberOfPulses();
+  
 };
 
 void readLeftEncoderChange()
 {
-  // drive.readLeftEncoder();
-  // drive.printEncodersNumberOfPulses();
+  
 };
 
 void readDetectorChange()
