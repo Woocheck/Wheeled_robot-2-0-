@@ -14,3 +14,8 @@ void TwoWheelDrive::driveControll( int leftSpeed, int rightSpeed )
 	leftDC.control( leftSpeed );
 	rightDC.control( rightSpeed );
 };
+
+void TwoWheelDrive::stop()
+{
+	driveControll( 0, 0 );
+}

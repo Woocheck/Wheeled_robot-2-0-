@@ -31,7 +31,7 @@ class TwoWheelDrive
 		~TwoWheelDrive();
 		
 		void driveControll( int leftSpeed, int rightSpeed );
-
+		void stop();
 	private:
 		TwoWheelDrive( const TwoWheelDrive &c );
 		TwoWheelDrive& operator=( const TwoWheelDrive &c );
