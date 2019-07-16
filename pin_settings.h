@@ -8,28 +8,31 @@
 #ifndef PIN_SETTINGS_H_
 #define PIN_SETTINGS_H_
 
+namespace Gpio {
+    const int engineLeftA = 2;
+    const int engineLeftB = 3;
+    const int engineLeftEnable = 21;
+    
+    const int engineRightA = 23;
+    const int engineRightB = 22;
+    const int engineRightEnable = 25;
+    
+    const int encoderLeftA = 0;
+    const int encoderLeftB = 9;
+    
+    const int encoderRightA = 1;
+    const int encoderRightB = 4;
+    
+    const int frontSensor_1 = 6;
+    const int frontSensor_2 = 26;
+    const int frontSensor_3 = 27;
+    const int frontSensor_4 = 28;
+    const int frontSensor_5 = 29;
 
- 
- #define PIN_LEFT_A 2
- #define PIN_LEFT_B 3
- #define PIN_LEFT_ENABLE 21
- 
- #define PIN_RIGHT_A 23
- #define PIN_RIGHT_B 22
- #define PIN_RIGHT_ENABLE 25
+    const int n = 24;
 
- #define PIN_ENCODER_LEFT_A 0
- #define PIN_ENCODER_LEFT_B 9
+}
 
- #define PIN_ENCODER_RIGHT_A 1
- #define PIN_ENCODER_RIGHT_B 4
 
- #define PIN_SENSOR_1 6 
- #define PIN_SENSOR_2 26
- #define PIN_SENSOR_3 27
- #define PIN_SENSOR_4 28
- #define PIN_SENSOR_5 29
-
- #define PIN_BUTTON 24
  
 #endif /* PIN_SETTINGS_H_ */
