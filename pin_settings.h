@@ -29,7 +29,7 @@ namespace Gpio {
     const int frontSensor_4 = 28;
     const int frontSensor_5 = 29;
 
-    const int n = 24;
+    const int OnButton = 24;
 
 }
 

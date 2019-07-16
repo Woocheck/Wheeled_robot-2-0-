@@ -40,8 +40,8 @@ void readDetectorChange();
 
 bool isLineDetected();
 
-Detector lineDetector( PIN_SENSOR_1, PIN_SENSOR_2, PIN_SENSOR_3,
-                       PIN_SENSOR_4, PIN_SENSOR_5 );
+Detector lineDetector( Gpio::frontSensor_1, Gpio::frontSensor_2, Gpio::frontSensor_3,
+                       Gpio::frontSensor_4, Gpio::frontSensor_5 );
 
 TwoWheelDrive drive;
 ControllerLineFollower lineFollowerControl( drive );
@@ -51,14 +51,14 @@ int main(void)
 {
   wiringPiSetup();
 	
-  wiringPiISR ( PIN_ENCODER_RIGHT_B, INT_EDGE_BOTH,  &readRightEncoderChange ) ; 
-  wiringPiISR ( PIN_ENCODER_LEFT_B, INT_EDGE_BOTH,  &readLeftEncoderChange ) ;
+  wiringPiISR ( Gpio::encoderRightB, INT_EDGE_BOTH, &readRightEncoderChange ); 
+  wiringPiISR ( Gpio::encoderLeftB, INT_EDGE_BOTH, &readLeftEncoderChange );
 
-  wiringPiISR (PIN_SENSOR_1, INT_EDGE_BOTH,  &readDetectorChange ) ; 
-  wiringPiISR (PIN_SENSOR_2, INT_EDGE_BOTH,  &readDetectorChange ) ; 
-  wiringPiISR (PIN_SENSOR_3, INT_EDGE_BOTH,  &readDetectorChange ) ; 
-  wiringPiISR (PIN_SENSOR_4, INT_EDGE_BOTH,  &readDetectorChange ) ; 
-  wiringPiISR (PIN_SENSOR_5, INT_EDGE_BOTH,  &readDetectorChange ) ; 
+  wiringPiISR (Gpio::frontSensor_1, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (Gpio::frontSensor_2, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (Gpio::frontSensor_3, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (Gpio::frontSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (Gpio::frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
 
   int nominalSpeed { 60 };
 	lineFollowerControl.setSpeed( nominalSpeed );
@@ -77,21 +77,19 @@ int main(void)
 
   while(1)
   {
-		if(!isOn())
+		if( !isOn() && isPassed20ms() )
 		{
-		  if(isPassed20ms())
-		  {
-				lineDetector.readSensorsState();
+			lineDetector.readSensorsState();
+	    lineFollowerControl.setSensorsState( lineDetector.getSensorsState() );
+      lineFollowerControl.calculateError();
 
-	      lineFollowerControl.setSensorsState( lineDetector.getSensorsState() );
-        lineFollowerControl.calculateError();
-  
-	      int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
-        lineFollowerControl.setDirection( correction );	
-		  }
+	    int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
+      lineFollowerControl.setDirection( correction );	
 		}
   }
 }
+
+
 
  bool isPassed20ms()
  {
@@ -100,8 +98,8 @@ int main(void)
 
  bool isOn()
  {
-   pinMode ( PIN_BUTTON, INPUT ) ;
-	 return digitalRead (PIN_BUTTON); 
+   pinMode ( Gpio::OnButton, INPUT ) ;
+	 return digitalRead ( Gpio::OnButton ); 
  }
 
 void readRightEncoderChange()
