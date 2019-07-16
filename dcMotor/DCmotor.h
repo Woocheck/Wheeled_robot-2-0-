@@ -18,9 +18,9 @@ class DcMotor
 
 private:
 	enum class Direction { forward, backward };
-	volatile int  pinA;
-	volatile int  pinB;
-	volatile int  pinEnable;
+	volatile const int pinA;
+	volatile const int pinB;
+	volatile const int pinEnable;
 
 	volatile Direction direction = Direction::forward;
 	volatile int speed { 0 };
@@ -29,7 +29,7 @@ private:
 public:
 	
 	DcMotor() = delete;
-	DcMotor( int a, int b, int enable ):
+	DcMotor( const int a, const int b, const int enable ):
 					pinA { a },
 					pinB { b },
 					pinEnable { enable } 

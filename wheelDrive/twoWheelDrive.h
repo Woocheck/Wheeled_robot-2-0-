@@ -23,8 +23,8 @@ class TwoWheelDrive
 
 	public:
 		TwoWheelDrive():
-			leftDC(  PIN_LEFT_A, PIN_LEFT_B , PIN_LEFT_ENABLE ),
-			rightDC( PIN_RIGHT_A, PIN_RIGHT_B , PIN_RIGHT_ENABLE )
+			leftDC(  Gpio::engineLeftA, Gpio::engineLeftB , Gpio::engineLeftEnable ),
+			rightDC( Gpio::engineRightA, Gpio::engineRightB , Gpio::engineRightEnable )
 		{
 			wiringPiSetup();
 		};
