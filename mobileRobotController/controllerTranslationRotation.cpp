@@ -6,6 +6,7 @@
 * Author: Woocheck
 */
 
+#include <cstdlib>
 
 #include "./controllerTranlationRotation.h"
 
@@ -102,7 +103,9 @@ bool RouteController::needToBrake()
 
 bool RouteController::needToRotationBrake()
 {
-
+    return ((_rotator.currentSpeed - _rotator.nextSpeed) *
+            (_rotator.currentSpeed - _rotator.nextSpeed) /(2*_rotator.acceleration)) 
+            >= (std::abs(_rotator.targetDistance) - std::abs(_rotator.roadToPass));
 };
 
 bool RouteController::reachedDestination()
