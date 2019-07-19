@@ -1,6 +1,6 @@
 
 /* 
-* routeControll.h
+* controllerTranslationRotation.h.h
 *
 * Created: 15.07.2019 21:50:45
 * Author: Woocheck
@@ -86,11 +86,13 @@ void RouteController::calculateRotation()
 
 int RouteController::getTranslation()
 {
+    calculateTranslation();
     return static_cast<int>( _translator.currentSpeed ) ;
 };
 
 int RouteController::getRotation()
 {
+    calculateRotation();
     return static_cast<int>( _rotator.currentSpeed );
 };
 
@@ -111,11 +113,13 @@ bool RouteController::needToRotationBrake()
 
 bool RouteController::reachedDestination()
 {
-
+    return _translator.targetDistance >= _translator.roadToPass 
+            || ( _translator.state == VehicleState::braking && _translator.currentSpeed == 0 );
 }
 
 bool RouteController::reachedAngle()
 {
+    return  _translator.state == VehicleState::braking && _translator.currentSpeed == 0;
 
 }
      
