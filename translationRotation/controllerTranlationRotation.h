@@ -6,8 +6,8 @@
 */
 
 
-#ifndef __TWO_WHEEL_DRIVE_CLASS_H__
-#define __TWO_WHEEL_DRIVE_CLASS_H__
+#ifndef __CONTROLLER_TRANSLATION_ROTATION__
+#define __CONTROLLER_TRANSLATION_ROTATION__
 
 enum class VehicleState { ride, stop, braking };
 
