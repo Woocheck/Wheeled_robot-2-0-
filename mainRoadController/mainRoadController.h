@@ -11,6 +11,7 @@
 #include "../translationRotation/controllerTranlationRotation.h"
 #include "../encoder/encoder.h"
 #include "../wheelDrive/twoWheelDrive.h"
+#include "../translationRotation/controllerTranlationRotation.h"
 
 
 class MainRoadController
@@ -18,23 +19,24 @@ class MainRoadController
     private:
         int _distance {};
         int _angle{};
+        int _nominalSpeed {0};
+        int _acceleration {0};
         Encoder& _leftEncoder;
         Encoder& _rightEncoder;
+        TwoWheelDrive& _drive;
+        RouteController translationRotation;
 
 
     public:
-        MainRoadController( Encoder& left, Encoder& reight, TwoWheelDrive& ):
+        MainRoadController( Encoder& left, Encoder& reight, TwoWheelDrive& dr ):
             _leftEncoder( left ),
-            _rightEncoder( reight ) {};
-        
+            _rightEncoder( reight ),
+            _drive( dr ),
+            translationRotation( 100, 1, 1000, 0){}
+        void setInicialisationParameters( const int& distance, const int& angle);
         void regulation();
 
-        void setDistanceAndAngle( const int& distance, const int& angle )
-        {
-            _distance = distance;
-            _angle = angle;
-            regulation();
-        }
+        void setDistanceAndAngle( const int& distance, const int& angle );
 };
 
 
