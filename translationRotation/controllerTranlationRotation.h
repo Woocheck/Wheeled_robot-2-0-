@@ -39,7 +39,7 @@ class RouteController
              _rotator( nominalSpeed, acceleration, angle ) {};
         int getTranslation();
         int getRotation();
-    // private:
+    private:
         void calculateTranslation();
         void calculateRotation();
         bool needToBrake();
