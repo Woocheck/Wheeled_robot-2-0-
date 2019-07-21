@@ -12,6 +12,7 @@
 #include "../encoder/encoder.h"
 #include "../wheelDrive/twoWheelDrive.h"
 #include "../translationRotation/controllerTranlationRotation.h"
+#include "../regulatorPD/regulatorPD.h"
 
 
 class MainRoadController
@@ -23,8 +24,11 @@ class MainRoadController
         int _acceleration {0};
         Encoder& _leftEncoder;
         Encoder& _rightEncoder;
+        
         TwoWheelDrive& _drive;
-        RouteController translationRotation;
+        RouteController profiler;
+        RegulatorPD translationRegulator;
+        RegulatorPD rotationRegulator;
 
 
     public:
@@ -32,7 +36,7 @@ class MainRoadController
             _leftEncoder( left ),
             _rightEncoder( reight ),
             _drive( dr ),
-            translationRotation( 100, 1, 1000, 0){}
+            profiler( 100, 1, 1000, 0){}
         void setInicialisationParameters( const int& distance, const int& angle);
         void regulation();
 
