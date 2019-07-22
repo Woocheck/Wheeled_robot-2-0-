@@ -12,25 +12,32 @@ void MainRoadController::setInicialisationParameters(
 {
     
 }
-void MainRoadController::regulation()
+
+int MainRoadController::calculateTranslation( int leftPulses, int rightPulses )
 {
-    auto leftEncoderPulses = _leftEncoder.getNumeberOfPulses(); 
-    auto rightEncoderPulses = _rightEncoder.getNumeberOfPulses();
-    
-    auto enkoderTranslation = leftEncoderPulses + rightEncoderPulses;
-    auto enkoderRotation = leftEncoderPulses - rightEncoderPulses;
-
+    auto enkoderTranslation = leftPulses + rightPulses;
     auto profilertrTranslation = profiler.getTranslation();
-    auto profilertrRotation = profiler.getRotation();
-
     auto errorTranslation = profilertrTranslation - enkoderTranslation;
+    return translationRegulator.calculate(errorTranslation);
+}
+
+int MainRoadController::calculateRotation( int leftPulses, int rightPulses )
+{
+    auto enkoderRotation = leftPulses - rightPulses;
+    auto profilertrRotation = profiler.getRotation();
     auto errorRotation = profilertrRotation - enkoderRotation;
+    return rotationRegulator.calculate(errorRotation);
+}
 
-    auto pwmTranslation = translationRegulator.calculate(errorTranslation);
-    auto pwmRotation = rotationRegulator.calculate(errorRotation);
+void MainRoadController::setNextStep()
+{
+    auto translation = calculateTranslation( _leftEncoder.getNumeberOfPulses(),
+                                             _rightEncoder.getNumeberOfPulses() );
+    auto rotation = calculateRotation( _leftEncoder.getNumeberOfPulses(), 
+                                    _rightEncoder.getNumeberOfPulses() );
 
-    auto nextLeftPWM = pwmTranslation + pwmRotation;
-    auto nextRightPWM = pwmTranslation + pwmRotation;
+    auto nextLeftPWM = translation + rotation;
+    auto nextRightPWM = translation + rotation;
 
     _drive.driveControll( nextLeftPWM, nextRightPWM );
 }
@@ -39,5 +46,5 @@ void MainRoadController::setDistanceAndAngle( const int& distance, const int& an
         {
             _distance = distance;
             _angle = angle;
-            regulation();
+            setNextStep();
         }

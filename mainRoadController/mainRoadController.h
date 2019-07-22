@@ -38,9 +38,12 @@ class MainRoadController
             _drive( dr ),
             profiler( 100, 1, 1000, 0){}
         void setInicialisationParameters( const int& distance, const int& angle);
-        void regulation();
-
         void setDistanceAndAngle( const int& distance, const int& angle );
+
+    private:
+        int calculateTranslation( int leftPulses, int rightPulses );
+        int calculateRotation( int leftPulses, int rightPulses );
+        void setNextStep();
 };
 
 
