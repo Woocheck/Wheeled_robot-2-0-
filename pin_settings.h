@@ -8,7 +8,7 @@
 #ifndef PIN_SETTINGS_H_
 #define PIN_SETTINGS_H_
 
-namespace Gpio {
+struct Gpio {
     const int engineLeftA = 2;
     const int engineLeftB = 3;
     const int engineLeftEnable = 21;
@@ -31,7 +31,7 @@ namespace Gpio {
 
     const int OnButton = 24;
 
-}
+} gpio;
 
 
  
