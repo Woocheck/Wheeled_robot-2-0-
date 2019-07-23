@@ -34,7 +34,7 @@ class RouteController
         Parameters _rotator;
     
     public:
-        RouteController(float nominalSpeed, float acceleration, float distance, float angle  ):
+        RouteController( float nominalSpeed, float acceleration, float distance, float angle  ):
              _translator( nominalSpeed, acceleration, distance ),
              _rotator( nominalSpeed, acceleration, angle ) {};
         int getTranslation();
