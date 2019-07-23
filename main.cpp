@@ -27,6 +27,7 @@
 #include "./controllerLineFollower/controllerLineFollower.h"
 #include "./controllerLookingForLine/controllerLookingForLine.h"
 #include "./timer/timer.h"
+#include "./mainRoadController/mainRoadController.h"
 
 
 
@@ -40,10 +41,13 @@ void readDetectorChange();
 
 bool isLineDetected();
 
-Detector lineDetector( Gpio::frontSensor_1, Gpio::frontSensor_2, Gpio::frontSensor_3,
-                       Gpio::frontSensor_4, Gpio::frontSensor_5 );
+Detector lineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
+                       gpio.frontSensor_4, gpio.frontSensor_5 );
 
+Encoder leftEncoder( gpio.encoderLeftA, gpio.encoderLeftB );
+Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
 TwoWheelDrive drive;
+MainRoadController mainController( leftEncoder, rightEencoder, drive );
 ControllerLineFollower lineFollowerControl( drive );
 ControllerLookingForLine lineSeeker( drive, lineDetector );
 
@@ -51,14 +55,14 @@ int main(void)
 {
   wiringPiSetup();
 	
-  wiringPiISR ( Gpio::encoderRightB, INT_EDGE_BOTH, &readRightEncoderChange ); 
-  wiringPiISR ( Gpio::encoderLeftB, INT_EDGE_BOTH, &readLeftEncoderChange );
+  wiringPiISR ( gpio.encoderRightB, INT_EDGE_BOTH, &readRightEncoderChange ); 
+  wiringPiISR ( gpio.encoderLeftB, INT_EDGE_BOTH, &readLeftEncoderChange );
 
-  wiringPiISR (Gpio::frontSensor_1, INT_EDGE_BOTH, &readDetectorChange ); 
-  wiringPiISR (Gpio::frontSensor_2, INT_EDGE_BOTH, &readDetectorChange ); 
-  wiringPiISR (Gpio::frontSensor_3, INT_EDGE_BOTH, &readDetectorChange ); 
-  wiringPiISR (Gpio::frontSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
-  wiringPiISR (Gpio::frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.frontSensor_1, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.frontSensor_2, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.frontSensor_3, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.frontSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
 
   int nominalSpeed { 60 };
 	lineFollowerControl.setSpeed( nominalSpeed );
@@ -98,18 +102,18 @@ int main(void)
 
  bool isOn()
  {
-   pinMode ( Gpio::OnButton, INPUT ) ;
-	 return digitalRead ( Gpio::OnButton ); 
+   pinMode ( gpio.OnButton, INPUT ) ;
+	 return digitalRead ( gpio.OnButton ); 
  }
 
 void readRightEncoderChange()
 {
-  
+  rightEencoder.readDistance();
 };
 
 void readLeftEncoderChange()
 {
-  
+  leftEncoder.readDistance();
 };
 
 void readDetectorChange()
