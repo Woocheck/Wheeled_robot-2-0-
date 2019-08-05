@@ -29,6 +29,12 @@ struct Gpio {
     const int frontSensor_4 = 28;
     const int frontSensor_5 = 29;
 
+    const int rearSensor_1 = 29;
+    const int rearSensor_2 = 29;
+    const int rearSensor_3 = 29;
+    const int rearSensor_4 = 29;
+    const int rearSensor_5 = 29;
+
     const int OnButton = 24;
 
 } gpio;

@@ -43,6 +43,8 @@ bool isLineDetected();
 
 Detector lineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
                        gpio.frontSensor_4, gpio.frontSensor_5 );
+Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor_3,
+                       gpio.rearSensor_4, gpio.rearSensor_5  );
 
 Encoder leftEncoder( gpio.encoderLeftA, gpio.encoderLeftB );
 Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
@@ -64,7 +66,7 @@ int main(void)
   wiringPiISR (gpio.frontSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
   wiringPiISR (gpio.frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
 
-  int nominalSpeed { 60 };
+  int nominalSpeed { 55 };
 	lineFollowerControl.setSpeed( nominalSpeed );
   
   if(!isOn()) 
