@@ -27,7 +27,7 @@
 #include "./controllerLineFollower/controllerLineFollower.h"
 #include "./controllerLookingForLine/controllerLookingForLine.h"
 #include "./timer/timer.h"
-#include "./mainRoadController/mainRoadController.h"
+#include "./RoadController/RoadController.h"
 
 
 
@@ -41,7 +41,7 @@ void readDetectorChange();
 
 bool isLineDetected();
 
-Detector lineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
+Detector frontLineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
                        gpio.frontSensor_4, gpio.frontSensor_5 );
 Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor_3,
                        gpio.rearSensor_4, gpio.rearSensor_5  );
@@ -49,9 +49,9 @@ Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor
 Encoder leftEncoder( gpio.encoderLeftA, gpio.encoderLeftB );
 Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
 TwoWheelDrive drive;
-MainRoadController mainController( leftEncoder, rightEencoder, drive );
+RoadController mainController( leftEncoder, rightEencoder, drive );
 ControllerLineFollower lineFollowerControl( drive );
-ControllerLookingForLine lineSeeker( drive, lineDetector );
+ControllerLookingForLine lineSeeker( drive, frontLineDetector );
 
 int main(void)
 {
@@ -79,14 +79,16 @@ int main(void)
     }
     
     lineSeeker.stopVechicle();
+
+    putVehicleOnLine();
   }
 
   while(1)
   {
 		if( !isOn() && isPassed20ms() )
 		{
-			lineDetector.readSensorsState();
-	    lineFollowerControl.setSensorsState( lineDetector.getSensorsState() );
+			frontLineDetector.readSensorsState();
+	    lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
       lineFollowerControl.calculateError();
 
 	    int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
@@ -108,6 +110,11 @@ int main(void)
 	 return digitalRead ( gpio.OnButton ); 
  }
 
+void putVehicleOnLine()
+{
+
+};
+
 void readRightEncoderChange()
 {
   rightEencoder.readDistance();
@@ -120,8 +127,11 @@ void readLeftEncoderChange()
 
 void readDetectorChange()
 {
-	lineDetector.readSensorsState();
-	lineDetector.printSensorsState();	
+	frontLineDetector.readSensorsState();
+	rearLineDetector.readSensorsState();
+  
+  frontLineDetector.printSensorsState();
+  rearLineDetector.printSensorsState();
 };
 
 
