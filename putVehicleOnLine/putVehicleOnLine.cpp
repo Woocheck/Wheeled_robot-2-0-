@@ -5,8 +5,18 @@
 
 void PutVehicleOnLine::setOptimalPositionOnLine()
 {
+    int distance { 0 };
+    int angle { 200 };
+    roadController_.setDistanceAndAngle( distance, angle );
+    while( !isVehicleOnLine() || isPassedFiveSeconds() )
+    {
 
+    }
 }
+bool PutVehicleOnLine::isVehicleOnLine()
+{
+    return !isSetOnLine( frontDetector_ ) && !isSetOnLine( rearDetector_ );
+};
 
 bool PutVehicleOnLine::isSetOnLine( Detector& detector )
 {
@@ -20,4 +30,9 @@ bool PutVehicleOnLine::isSetOnLine( Detector& detector )
                 });
     
     return result;
+}
+
+bool PutVehicleOnLine::isPassedFiveSeconds()
+{
+    return ( millis()%5000) == 0;
 }
