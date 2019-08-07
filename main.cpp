@@ -28,6 +28,7 @@
 #include "./controllerLookingForLine/controllerLookingForLine.h"
 #include "./timer/timer.h"
 #include "./RoadController/RoadController.h"
+#include "./putVehicleOnLine/putVehicleOnLine.h"
 
 
 
@@ -48,10 +49,14 @@ Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor
 
 Encoder leftEncoder( gpio.encoderLeftA, gpio.encoderLeftB );
 Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
+
 TwoWheelDrive drive;
 RoadController mainController( leftEncoder, rightEencoder, drive );
-ControllerLineFollower lineFollowerControl( drive );
+
 ControllerLookingForLine lineSeeker( drive, frontLineDetector );
+PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
+ControllerLineFollower lineFollowerControl( drive );
+
 
 int main(void)
 {
@@ -67,6 +72,7 @@ int main(void)
   wiringPiISR (gpio.frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
 
   int nominalSpeed { 55 };
+
 	lineFollowerControl.setSpeed( nominalSpeed );
   
   if(!isOn()) 
@@ -82,7 +88,10 @@ int main(void)
 
     putVehicleOnLine();
   }
-
+  
+  if( !putOnLineController.isVehicleOnLine() )
+    putOnLineController.setOptimalPositionOnLine();
+    
   while(1)
   {
 		if( !isOn() && isPassed20ms() )
