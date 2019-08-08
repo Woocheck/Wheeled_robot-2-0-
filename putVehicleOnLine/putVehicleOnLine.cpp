@@ -3,15 +3,20 @@
 
 #include "./putVehicleOnLine.h"
 
-void PutVehicleOnLine::setOptimalPositionOnLine()
+bool PutVehicleOnLine::setOptimalPositionOnLine()
 {
     int distance { 0 };
     int angle { 200 };
+    bool onPosition {false};
     roadController_.setDistanceAndAngle( distance, angle );
     while( !isVehicleOnLine() || isPassedFiveSeconds() )
     {
-
-    }
+        if( isVehicleOnLine() )
+            onPosition = true;
+        else
+            onPosition = false;
+    };
+    return onPosition;
 }
 bool PutVehicleOnLine::isVehicleOnLine()
 {

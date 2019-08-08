@@ -72,7 +72,6 @@ int main(void)
   wiringPiISR (gpio.frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
 
   int nominalSpeed { 55 };
-
 	lineFollowerControl.setSpeed( nominalSpeed );
   
   if(!isOn()) 

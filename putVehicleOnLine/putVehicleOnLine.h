@@ -23,7 +23,7 @@ class PutVehicleOnLine
             { 
                 controller.setInicialisationParameters( distance_, angle_ );
             };
-        void setOptimalPositionOnLine();
+        bool setOptimalPositionOnLine();
         bool isVehicleOnLine();
     private:
         bool isSetOnLine( Detector& detector );
