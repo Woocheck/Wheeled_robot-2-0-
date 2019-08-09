@@ -1,7 +1,10 @@
 #include <set>
 #include <algorithm>
+#include <chrono>
 
 #include "./putVehicleOnLine.h"
+#include "../timer/timer.h"
+
 
 bool PutVehicleOnLine::setOptimalPositionOnLine()
 {
@@ -18,6 +21,7 @@ bool PutVehicleOnLine::setOptimalPositionOnLine()
     };
     return onPosition;
 }
+
 bool PutVehicleOnLine::isVehicleOnLine()
 {
     return !isSetOnLine( frontDetector_ ) && !isSetOnLine( rearDetector_ );
@@ -39,5 +43,25 @@ bool PutVehicleOnLine::isSetOnLine( Detector& detector )
 
 bool PutVehicleOnLine::isPassedFiveSeconds()
 {
-    return ( millis()%5000) == 0;
+    using namespace std::literals;
+    static bool countingInProgres { false };
+    Timer fiveSecondsCounter;
+
+    if( countingInProgres )
+    {
+        fiveSecondsCounter.stop();
+        auto timePeriod = fiveSecondsCounter.getDuration();
+        if( timePeriod >= 5s )
+            {
+                countingInProgres = false;
+                return true;
+            }
+    }
+    else
+    {
+        fiveSecondsCounter.start();
+        countingInProgres = true;
+        return false;
+    }
+    
 }
