@@ -84,8 +84,6 @@ int main(void)
     }
     
     lineSeeker.stopVechicle();
-
-    putVehicleOnLine();
   }
   
   if( !putOnLineController.isVehicleOnLine() )
@@ -117,11 +115,6 @@ int main(void)
    pinMode ( gpio.OnButton, INPUT ) ;
 	 return digitalRead ( gpio.OnButton ); 
  }
-
-void putVehicleOnLine()
-{
-
-};
 
 void readRightEncoderChange()
 {
