@@ -9,7 +9,7 @@ Robot porusza się po trasie oznaczonej linią na podłożu.
 
 Warstwa sprzętowa:
 
-Sterownik: Raspberry Pi 3 B+.
+Sterownik: Raspberry Pi 3 B+.\n
 Napęd: dwa Silnik z przekładnią SJ01 120:1 6V 160RPM + enkoder
 Sterowane za pomocą mostka H w postaci układu L293D.
 Pomiar prędkości: 2 enkodery 16 impulsów na obrót (po przełożeniu 1920 impulsów na obrót).
