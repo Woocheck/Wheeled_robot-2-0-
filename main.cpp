@@ -15,8 +15,8 @@
 #include <algorithm>
 
 
-#include "/home/user/workspace_Wheeled_robot/Wheeled_robot_2/wiringPi/wiringPi/wiringPi.h"
-#include "/home/user/workspace_Wheeled_robot/Wheeled_robot_2/wiringPi/wiringPi/softPwm.h"
+#include <wiringPi.h>
+#include <softPwm.h>
 
 #include "./pin_settings.h"
 
@@ -42,6 +42,7 @@ void readDetectorChange();
 
 bool isLineDetected();
 
+Gpio gpio;
 Detector frontLineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
                        gpio.frontSensor_4, gpio.frontSensor_5 );
 Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor_3,

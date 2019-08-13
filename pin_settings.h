@@ -5,8 +5,8 @@
  *  Author: Woocheck
 */
 
-#ifndef PIN_SETTINGS_H_
-#define PIN_SETTINGS_H_
+#ifndef __PIN_SETTINGS_H__
+#define __PIN_SETTINGS_H__
 
 struct Gpio {
     const int engineLeftA = 2;
@@ -37,7 +37,7 @@ struct Gpio {
 
     const int OnButton = 24;
 
-} gpio;
+};
 
 
  

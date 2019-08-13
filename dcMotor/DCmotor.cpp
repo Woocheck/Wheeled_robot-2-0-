@@ -6,8 +6,8 @@
 */
 
 #include <cmath>
-#include "/home/user/workspace_Wheeled_robot/Wheeled_robot_2/wiringPi/wiringPi/wiringPi.h"
-#include "/home/user/workspace_Wheeled_robot/Wheeled_robot_2/wiringPi/wiringPi/softPwm.h"
+#include <wiringPi.h>
+#include <softPwm.h>
 #include "./DCmotor.h" 
 
 
