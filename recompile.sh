@@ -1,8 +1,15 @@
 #!/bin/sh
 
-g++ main.cpp ./wheelDrive/twoWheelDrive.cpp ./dcMotor/DCmotor.cpp ./encoder/encoder.cpp \
+g++ \
+main.cpp \
+./wheelDrive/twoWheelDrive.cpp \
+./translationRotation/controllerTranslationRotation.cpp \
+./RoadController/RoadController.cpp \
 ./regulatorPD/regulatorPD.cpp \
- lineDetector/detector.cpp \
- controllerLineFollower/controllerLineFollower.h \
- controllerLookingForLine/controllerLookingForLine.h\
+./putVehicleOnLine/putVehicleOnLine.cpp \
+./lineDetector/detector.cpp \
+./encoder/encoder.cpp \
+./dcMotor/DCmotor.cpp \
+./controllerLookingForLine/controllerLookingForLine.cpp \
+./controllerLineFollower/controllerLineFollower.cpp \
  -o main -std=c++17 -lwiringPi -lpthread
