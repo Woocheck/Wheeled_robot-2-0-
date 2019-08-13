@@ -6,6 +6,7 @@
 
 class PutVehicleOnLine
 {
+    Gpio gpio;
     Detector& frontDetector_;
     Detector& rearDetector_;
 

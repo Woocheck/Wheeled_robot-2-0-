@@ -17,7 +17,8 @@
 
 class TwoWheelDrive
 {
-	private:               
+	private: 
+		Gpio gpio;              
 		DcMotor leftDC;
 		DcMotor rightDC;
 
@@ -28,7 +29,6 @@ class TwoWheelDrive
 		{
 			wiringPiSetup();
 		};
-		~TwoWheelDrive();
 		
 		void driveControll( int leftSpeed, int rightSpeed );
 		void stop();

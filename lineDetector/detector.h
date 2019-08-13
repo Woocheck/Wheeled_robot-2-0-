@@ -11,7 +11,8 @@
 
 #include <vector>
 #include <iostream>
-#include "/home/user/workspace_Wheeled_robot/Wheeled_robot_2/wiringPi/wiringPi/wiringPi.h"
+#include <wiringPi.h>
+
 
 class Detector 
 {
