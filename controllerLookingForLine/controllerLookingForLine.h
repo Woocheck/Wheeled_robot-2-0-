@@ -14,10 +14,10 @@ class ControllerLookingForLine
         TwoWheelDrive& drive;
         Detector& lineDetector;
 
-        int increaseSpeedForBiggerRadius { 15 };
+        int increaseSpeedForBiggerRadius { 5 };
         int leftWheelSpeed { 50 };
         int rightWheelSpeed { 0 };
-        std::chrono::duration<double> timeToPassFullCircle { 2 };
+        std::chrono::duration<double> timeToPassFullCircle { 5 };
         
     public:
         ControllerLookingForLine( TwoWheelDrive& drv, Detector& detector ):
