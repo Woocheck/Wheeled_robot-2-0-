@@ -36,7 +36,9 @@ class RoadController
             _leftEncoder( left ),
             _rightEncoder( reight ),
             _drive( dr ),
-            profiler( 100, 1, 1000, 0){}
+            profiler( 40, 1, 0, 0),
+            translationRegulator( 1, 0 ),
+            rotationRegulator( 1, 0 ){}
         void setInicialisationParameters( const int& distance, const int& angle);
         void setDistanceAndAngle( const int& distance, const int& angle );
 
