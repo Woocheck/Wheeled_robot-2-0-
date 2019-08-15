@@ -15,7 +15,7 @@ struct Parameters
 {
     VehicleState state = VehicleState::ride;
     float targetSpeed { 0 };
-    float nextSpeed { 5 };
+    float nextSpeed { 0 };
     float currentSpeed { 0 };
     float acceleration { 0 };
     int roadToPass { 0 };

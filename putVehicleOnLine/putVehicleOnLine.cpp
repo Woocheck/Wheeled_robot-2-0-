@@ -23,8 +23,8 @@ bool PutVehicleOnLine::setOptimalPositionOnLine()
 }
 
 bool PutVehicleOnLine::isVehicleOnLine()
-{
-    return !isSetOnLine( frontDetector_ ) && !isSetOnLine( rearDetector_ );
+{   
+    return isSetOnLine( frontDetector_ ) && isSetOnLine( rearDetector_ );
 };
 
 bool PutVehicleOnLine::isSetOnLine( Detector& detector )
@@ -33,9 +33,9 @@ bool PutVehicleOnLine::isSetOnLine( Detector& detector )
     auto sensors = detector.getSensorsState();
 
     auto result = std::any_of( std::begin( sensors ), std::end( sensors ), 
-                []( const auto& sensorValue )
+                []( const int & sensorValue )
                 { 
-                   return sensorValue == 1;
+                   return sensorValue == 0;
                 });
     
     return result;
