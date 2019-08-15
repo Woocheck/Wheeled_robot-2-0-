@@ -54,9 +54,8 @@ Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
 TwoWheelDrive drive;
 RoadController mainController( leftEncoder, rightEencoder, drive );
 
-ControllerLookingForLine lineSeeker( drive, frontLineDetector );
-PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
-ControllerLineFollower lineFollowerControl( drive );
+
+
 
 
 int main(void)
@@ -72,26 +71,41 @@ int main(void)
   wiringPiISR (gpio.frontSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
   wiringPiISR (gpio.frontSensor_5, INT_EDGE_BOTH, &readDetectorChange ); 
 
+  wiringPiISR (gpio.rearSensor_1, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.rearSensor_2, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.rearSensor_3, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.rearSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
+  wiringPiISR (gpio.rearSensor_5, INT_EDGE_BOTH, &readDetectorChange );
+
   int nominalSpeed { 55 };
-	lineFollowerControl.setSpeed( nominalSpeed );
-  
+
   if(!isOn()) 
   {
+    ControllerLookingForLine lineSeeker( drive, frontLineDetector );
     lineSeeker.startLooking( nominalSpeed );
     
     while( lineSeeker.isNotFoundTheLine() )
     {
       lineSeeker.verifiesMovementCorrectness();
+      std::cout << "look\n";
     }
     
     lineSeeker.stopVechicle();
   }
-  
+  /*
+  {
+  PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
   if( !putOnLineController.isVehicleOnLine() )
     putOnLineController.setOptimalPositionOnLine();
-    
+  }
+*/
+  ControllerLineFollower lineFollowerControl( drive );
+
   while(1)
   {
+    
+	  lineFollowerControl.setSpeed( nominalSpeed );
+
 		if( !isOn() && isPassed20ms() )
 		{
 			frontLineDetector.readSensorsState();
@@ -102,9 +116,8 @@ int main(void)
       lineFollowerControl.setDirection( correction );	
 		}
   }
+  
 }
-
-
 
  bool isPassed20ms()
  {
