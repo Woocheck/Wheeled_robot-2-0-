@@ -103,36 +103,35 @@ int main(void)
 
   while(1)
   {
-    
-	  lineFollowerControl.setSpeed( nominalSpeed );
+    lineFollowerControl.setSpeed( nominalSpeed );
 
-		if( !isOn() && isPassed20ms() )
-		{
-			frontLineDetector.readSensorsState();
-	    lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
-      lineFollowerControl.calculateError();
+    if( !isOn() && isPassed20ms() )
+    {
+     	frontLineDetector.readSensorsState();
+	lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
+        lineFollowerControl.calculateError();
 
-	    int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
-      lineFollowerControl.setDirection( correction );	
-		}
+	int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
+        lineFollowerControl.setDirection( correction );	
+     }
   }
   
 }
 
  bool isPassed20ms()
  {
-	 return ( millis()%20) == 0;
+   return ( millis()%20) == 0;
  };
 
  bool isOn()
  {
    pinMode ( gpio.OnButton, INPUT ) ;
-	 return digitalRead ( gpio.OnButton ); 
+   return digitalRead ( gpio.OnButton ); 
  }
 
 void readRightEncoderChange()
 {
-  rightEencoder.readDistance();
+   rightEencoder.readDistance();
 };
 
 void readLeftEncoderChange()
@@ -142,8 +141,8 @@ void readLeftEncoderChange()
 
 void readDetectorChange()
 {
-	frontLineDetector.readSensorsState();
-	rearLineDetector.readSensorsState();
+  frontLineDetector.readSensorsState();
+  rearLineDetector.readSensorsState();
   
   frontLineDetector.printSensorsState();
   rearLineDetector.printSensorsState();
