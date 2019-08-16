@@ -8,7 +8,8 @@
 void ControllerLookingForLine::startLooking( int nominalSpeed )
 {
     leftWheelSpeed = nominalSpeed;
-    drive.driveControll( leftWheelSpeed, 0 );
+    int rightWheelSpeed { 0 };
+    drive.driveControll( leftWheelSpeed, rightWheelSpeed );
     timeBetweenRadiusChange.start();
 };
 
