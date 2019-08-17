@@ -10,7 +10,7 @@ class PutVehicleOnLine
     Detector& frontDetector_;
     Detector& rearDetector_;
 
-    int distance_ { 200 };
+    int speed_ { 40 };
     int angle_ { 0 };
 
     RoadController& roadController_;
@@ -20,10 +20,7 @@ class PutVehicleOnLine
         PutVehicleOnLine( Detector& fDet, Detector& rDet, RoadController& controller ):
             frontDetector_( fDet ),
             rearDetector_( rDet ),
-            roadController_( controller ) 
-            { 
-                controller.setInicialisationParameters( distance_, angle_ );
-            };
+            roadController_( controller ){};
         bool setOptimalPositionOnLine();
         bool isVehicleOnLine();
     private:
