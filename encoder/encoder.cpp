@@ -12,6 +12,10 @@
 #include "./encoder.h"
 #include "../dcMotor/DCmotor.h"
 
+void Encoder::resetNumberOfPulses()
+{
+  numberOfPulses = 0;
+}
 void Encoder::readDistance()
 {
   int currentStatusPinA = digitalRead (pinA);

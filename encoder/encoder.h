@@ -15,7 +15,6 @@
 
 class Encoder 
 {
-  //variables
   private:
    const int pinA;
    const int pinB;
@@ -29,7 +28,7 @@ class Encoder
    bool wayside;
    bool result;
   
-  //functions
+  
   public:
   Encoder() = default;
   Encoder( int a, int b ):
@@ -43,6 +42,7 @@ class Encoder
       rotationDirection = Direction::forward;
   }
   
+  void resetNumberOfPulses();
   void readDistance();
   int getNumeberOfPulses();
 
