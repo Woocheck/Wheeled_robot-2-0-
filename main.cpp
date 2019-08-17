@@ -77,29 +77,48 @@ int main(void)
   wiringPiISR (gpio.rearSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
   wiringPiISR (gpio.rearSensor_5, INT_EDGE_BOTH, &readDetectorChange );
 
-  int nominalSpeed { 55 };
+  int nominalSpeed { 50 };
 
   if(!isOn()) 
   {
     ControllerLookingForLine lineSeeker( drive, frontLineDetector );
     lineSeeker.startLooking( nominalSpeed );
     
-    while( lineSeeker.isNotFoundTheLine() )
+    while( lineSeeker.isFoundTheLine() )
     {
       lineSeeker.verifiesMovementCorrectness();
-      std::cout << "look\n";
     }
-    
     lineSeeker.stopVechicle();
   }
-  /*
+/*
+  std::cout<<"right: "<< rightEencoder.getNumeberOfPulses() << " left: " << leftEncoder.getNumeberOfPulses() << "\n";
+  leftEncoder.resetNumberOfPulses();
+  rightEencoder.resetNumberOfPulses();
+  std::cout<<"right: "<< rightEencoder.getNumeberOfPulses() << " left: " << leftEncoder.getNumeberOfPulses() << "\n";
+  mainController.goByTimePeriod( 2, 30, 0 );
+  std::cout<< "after) \n";
+  std::cout<<"right: "<< rightEencoder.getNumeberOfPulses() << " left: " << leftEncoder.getNumeberOfPulses() << "\n";
+  std::cout<< "stop \n";
+  mainController.go( 0, 0 );
+    std::cout<< "kręci w miejscu \n";
+  mainController.goByTimePeriod( 5, 0, 30 );
+  std::cout<< "stop \n";
+  mainController.go( 0, 0 );
+    std::cout<< "kręci w miejscu  w drugą stronę\n";
+  mainController.goByTimePeriod( 5, 0, -30 );
+  std::cout<< "stop \n";
+  mainController.go( 0, 0 );
+  std::cout<< "koniec \n";
+  */
   {
   PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
   if( !putOnLineController.isVehicleOnLine() )
+    std::cout << "not on line\n";
     putOnLineController.setOptimalPositionOnLine();
   }
-*/
+
   ControllerLineFollower lineFollowerControl( drive );
+  lineFollowerControl.setSpeed(0);
 
   while(1)
   {
