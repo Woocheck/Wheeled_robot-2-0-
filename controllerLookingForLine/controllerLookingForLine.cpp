@@ -1,6 +1,10 @@
+
 #include <vector>
 #include <algorithm>
 
+
+
+#include <wiringPi.h>
 #include "../wheelDrive/twoWheelDrive.h"
 #include "../timer/timer.h"
 #include "./controllerLookingForLine.h"
@@ -20,10 +24,15 @@ void ControllerLookingForLine::resetTimeCount()
 
 bool ControllerLookingForLine::isTimeToChangeRadius()
 {
-    return timeToPassFullCircle <= timeBetweenRadiusChange.getDuration();
+    std::chrono::seconds fullFullCircleDuration( timeToPassFullCircle );
+    timeBetweenRadiusChange.stop();
+    // std::cout << " r: " << fullFullCircleDuration.count() << "  dd: "<< timeBetweenRadiusChange.getDuration().count()<<"\n";
+    auto result = fullFullCircleDuration.count() <= timeBetweenRadiusChange.getDuration().count();
+    if(result)std::cout << result << "\n";
+    return result ;
 };
 
-bool ControllerLookingForLine::isNotFoundTheLine()
+bool ControllerLookingForLine::isFoundTheLine()
 {
   lineDetector.readSensorsState();
   std::vector<int> sensorsState = lineDetector.getSensorsState();
@@ -39,8 +48,10 @@ void ControllerLookingForLine::stopVechicle()
 
 void ControllerLookingForLine::verifiesMovementCorrectness()
 {
+    
     if( isTimeToChangeRadius() )
     {
+        std::cout << "*";
         increaseSpeedForBiggerRadius++;
         drive.driveControll( leftWheelSpeed, 
             rightWheelSpeed + increaseSpeedForBiggerRadius ); 

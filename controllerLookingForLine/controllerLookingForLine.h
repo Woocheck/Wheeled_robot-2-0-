@@ -2,6 +2,7 @@
 #define __CONTROLL_LOOKING_FOR_LINE_H__
 
 #include <vector>
+#include <chrono>
 
 #include "../wheelDrive/twoWheelDrive.h"
 #include "../lineDetector/detector.h"
@@ -17,17 +18,17 @@ class ControllerLookingForLine
         int increaseSpeedForBiggerRadius { 5 };
         int leftWheelSpeed { 50 };
         int rightWheelSpeed { 0 };
-        std::chrono::duration<double> timeToPassFullCircle { 5 };
+        int timeToPassFullCircle { 3 };
         
     public:
         ControllerLookingForLine( TwoWheelDrive& drv, Detector& detector ):
             drive( drv ),
-            lineDetector( detector ) {};
+            lineDetector( detector ){};
 
         void startLooking( int nominalSpeed );
         void resetTimeCount();
         bool isTimeToChangeRadius();
-        bool isNotFoundTheLine();
+        bool isFoundTheLine();
         void stopVechicle();
         void increaseRadius();
         void verifiesMovementCorrectness();

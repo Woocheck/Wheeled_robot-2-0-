@@ -38,10 +38,10 @@ class Timer
         }
 
         std::chrono::duration<double> getDuration() const
-        {
+        {   
             return duration;
         }
-
+        
         bool operator<(const Timer& compared ) const
         {
         return ( duration < compared.getDuration() );
