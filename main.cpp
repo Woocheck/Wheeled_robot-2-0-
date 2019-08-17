@@ -90,26 +90,7 @@ int main(void)
     }
     lineSeeker.stopVechicle();
   }
-/*
-  std::cout<<"right: "<< rightEencoder.getNumeberOfPulses() << " left: " << leftEncoder.getNumeberOfPulses() << "\n";
-  leftEncoder.resetNumberOfPulses();
-  rightEencoder.resetNumberOfPulses();
-  std::cout<<"right: "<< rightEencoder.getNumeberOfPulses() << " left: " << leftEncoder.getNumeberOfPulses() << "\n";
-  mainController.goByTimePeriod( 2, 30, 0 );
-  std::cout<< "after) \n";
-  std::cout<<"right: "<< rightEencoder.getNumeberOfPulses() << " left: " << leftEncoder.getNumeberOfPulses() << "\n";
-  std::cout<< "stop \n";
-  mainController.go( 0, 0 );
-    std::cout<< "kręci w miejscu \n";
-  mainController.goByTimePeriod( 5, 0, 30 );
-  std::cout<< "stop \n";
-  mainController.go( 0, 0 );
-    std::cout<< "kręci w miejscu  w drugą stronę\n";
-  mainController.goByTimePeriod( 5, 0, -30 );
-  std::cout<< "stop \n";
-  mainController.go( 0, 0 );
-  std::cout<< "koniec \n";
-  */
+
   {
   PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
   if( !putOnLineController.isVehicleOnLine() )
