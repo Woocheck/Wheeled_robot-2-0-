@@ -7,44 +7,35 @@
 
 #include "./RoadController.h"
 
-void RoadController::setInicialisationParameters( 
-    const int& distance, const int& acceleration )
+void RoadController::goByTimePeriod( const int& time, 
+                    const int& speed, const int& angle )
 {
-    
+    _nominalSpeed = speed;
+    _angle = angle;
+    setTimePeriod( 2 );
+    while( !isPeriodPassed() )
+    {
+        go( _nominalSpeed, _angle );        
+    }
+
+};
+
+void RoadController::go( int speed, int angle )
+{
+    _drive.driveControll( _nominalSpeed + _angle,
+                              _nominalSpeed - angle );
 }
 
-int RoadController::calculateTranslation( int leftPulses, int rightPulses )
+void RoadController::setTimePeriod( int time)
 {
-    auto enkoderTranslation = leftPulses + rightPulses;
-    auto profilertrTranslation = profiler.getTranslation();
-    auto errorTranslation = profilertrTranslation - enkoderTranslation;
-    return translationRegulator.calculate(errorTranslation);
-}
+    _timePeriod = time;
+    timer.start();
+};
 
-int RoadController::calculateRotation( int leftPulses, int rightPulses )
+bool RoadController::isPeriodPassed()
 {
-    auto enkoderRotation = leftPulses - rightPulses;
-    auto profilertrRotation = profiler.getRotation();
-    auto errorRotation = profilertrRotation - enkoderRotation;
-    return rotationRegulator.calculate(errorRotation);
-}
-
-void RoadController::setNextStep()
-{
-    auto translation = calculateTranslation( _leftEncoder.getNumeberOfPulses(),
-                                             _rightEncoder.getNumeberOfPulses() );
-    auto rotation = calculateRotation( _leftEncoder.getNumeberOfPulses(), 
-                                    _rightEncoder.getNumeberOfPulses() );
-
-    auto nextLeftPWM = translation + rotation;
-    auto nextRightPWM = translation + rotation;
-
-    _drive.driveControll( nextLeftPWM, nextRightPWM );
-}
-
-void RoadController::setDistanceAndAngle( const int& distance, const int& angle )
-        {
-            _distance = distance;
-            _angle = angle;
-            setNextStep();
-        }
+    std::chrono::seconds periodInSeconds( _timePeriod );
+    timer.stop();
+    auto result = periodInSeconds.count() <= timer.getDuration().count();
+    return result ;
+};
