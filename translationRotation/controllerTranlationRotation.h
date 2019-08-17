@@ -39,6 +39,7 @@ class RouteController
              _rotator( nominalSpeed, acceleration, angle ) {};
         int getTranslation();
         int getRotation();
+        void setDistanceAndAngle( int distance, int angle );
     private:
         void calculateTranslation();
         void calculateRotation();
@@ -46,6 +47,7 @@ class RouteController
         bool needToRotationBrake();
         bool reachedDestination();
         bool reachedAngle();
+        
 };
 
 #endif

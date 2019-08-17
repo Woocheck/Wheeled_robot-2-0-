@@ -11,6 +11,12 @@
 
 #include "./controllerTranlationRotation.h"
 
+void RouteController::setDistanceAndAngle( int distance, int angle )
+{
+    _translator.targetDistance = distance;
+    _rotator.targetDistance = angle;
+};
+
 void RouteController::calculateTranslation()
 {
     if( _translator.state == VehicleState::ride && needToBrake() )
