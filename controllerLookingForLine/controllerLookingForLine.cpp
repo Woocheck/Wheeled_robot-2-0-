@@ -49,10 +49,9 @@ void ControllerLookingForLine::verifiesMovementCorrectness()
     
     if( isTimeToChangeRadius() )
     {
-        std::cout << "*";
         increaseSpeedForBiggerRadius++;
-        drive.driveControll( leftWheelSpeed, 
-            rightWheelSpeed + increaseSpeedForBiggerRadius ); 
+        rightWheelSpeed += increaseSpeedForBiggerRadius;
+        drive.driveControll( leftWheelSpeed, rightWheelSpeed ); 
         resetTimeCount();
     } 
 };
