@@ -17,7 +17,7 @@ Sterowane za pomocą mostka H w postaci układu L293D.
 
 Pomiar prędkości: 2 enkodery 16 impulsów na obrót (po przełożeniu 1920 impulsów na obrót).
 
-Wykrywanie trasy: Moduł z czujnikiem śledzenia linii TCRT5000L.
+Wykrywanie trasy: Dwa moduły z czujnikami śledzenia linii TCRT5000L.
 
 Wykrywanie przeszkód: ultradźwiękowy czujnik odległości HC - SR05.
 
@@ -29,3 +29,4 @@ Narzędzia:
 
 kompilator GCC,
 IDE Visual Studio Code.
+ 
