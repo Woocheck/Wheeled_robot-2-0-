@@ -10,10 +10,13 @@ bool PutVehicleOnLine::setOptimalPositionOnLine()
 {
     bool onPosition {false};
     
-    roadController_.goByTimePeriod( 5, speed_, angle_ );
+    speed_ = 60;
+    angle_ = 0;
+    int time { 2 };
+    roadController_.goByTimePeriod( time, speed_, angle_ );
 
     speed_ = 0;
-    angle_ = 50;
+    angle_ = 80;
     roadController_.go( speed_, angle_ );
     while( !isVehicleOnLine() || isPassedFiveSeconds() )
     {
@@ -54,7 +57,7 @@ bool PutVehicleOnLine::isPassedFiveSeconds()
     {
         fiveSecondsCounter.stop();
         auto timePeriod = fiveSecondsCounter.getDuration();
-        if( timePeriod >= 5s )
+        if( timePeriod >= 15s )
             {
                 countingInProgres = false;
                 return true;

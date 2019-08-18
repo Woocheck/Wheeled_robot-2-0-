@@ -10,7 +10,7 @@ class PutVehicleOnLine
     Detector& frontDetector_;
     Detector& rearDetector_;
 
-    int speed_ { 40 };
+    int speed_ { 50 };
     int angle_ { 0 };
 
     RoadController& roadController_;
