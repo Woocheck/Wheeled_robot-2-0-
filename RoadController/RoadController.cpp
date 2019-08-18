@@ -12,7 +12,8 @@ void RoadController::goByTimePeriod( const int& time,
 {
     _nominalSpeed = speed;
     _angle = angle;
-    setTimePeriod( 2 );
+    _timePeriod = time;
+    setTimePeriod( _timePeriod );
     while( !isPeriodPassed() )
     {
         go( _nominalSpeed, _angle );        
@@ -20,13 +21,15 @@ void RoadController::goByTimePeriod( const int& time,
 
 };
 
-void RoadController::go( int speed, int angle )
+void RoadController::go( const int& speed, const int& angle )
 {
+    _nominalSpeed = speed;
+    _angle = angle;
     _drive.driveControll( _nominalSpeed + _angle,
-                              _nominalSpeed - angle );
+                              _nominalSpeed - _angle );
 }
 
-void RoadController::setTimePeriod( int time)
+void RoadController::setTimePeriod( const int& time)
 {
     _timePeriod = time;
     timer.start();

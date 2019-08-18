@@ -33,9 +33,9 @@ class RoadController
             _drive( dr ){}
         void goByTimePeriod( const int& time, 
                 const int& speed, const int& angle );
-        void go( int speed, int angle );
+        void go(const int& speed, const int& angle );
     private:
-        void setTimePeriod( int time);
+        void setTimePeriod( const int& time);
         bool isPeriodPassed(); 
 };
 
