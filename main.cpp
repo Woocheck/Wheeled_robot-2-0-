@@ -88,34 +88,37 @@ int main(void)
     {
       lineSeeker.verifiesMovementCorrectness();
     }
+    
     lineSeeker.stopVechicle();
   }
 
+  if(!isOn())
   {
-  PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
-  if( !putOnLineController.isVehicleOnLine() )
-    std::cout << "not on line\n";
-    putOnLineController.setOptimalPositionOnLine();
+    PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
+    if( !putOnLineController.isVehicleOnLine() )
+      putOnLineController.setOptimalPositionOnLine();
   }
 
-  ControllerLineFollower lineFollowerControl( drive );
-  lineFollowerControl.setSpeed(0);
-
-  while(1)
+  if(!isOn())
   {
+    ControllerLineFollower lineFollowerControl( drive );
     lineFollowerControl.setSpeed( nominalSpeed );
 
-    if( !isOn() && isPassed20ms() )
+    while(1)
     {
-     	frontLineDetector.readSensorsState();
-	lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
+      lineFollowerControl.setSpeed( nominalSpeed );
+
+      if( !isOn() && isPassed20ms() )
+      {
+       	frontLineDetector.readSensorsState();
+	      lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
         lineFollowerControl.calculateError();
 
-	int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
+	      int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
         lineFollowerControl.setDirection( correction );	
-     }
+      }
+    }
   }
-  
 }
 
  bool isPassed20ms()
@@ -131,7 +134,7 @@ int main(void)
 
 void readRightEncoderChange()
 {
-   rightEencoder.readDistance();
+  rightEencoder.readDistance();
 };
 
 void readLeftEncoderChange()
