@@ -77,7 +77,7 @@ int main(void)
   wiringPiISR (gpio.rearSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
   wiringPiISR (gpio.rearSensor_5, INT_EDGE_BOTH, &readDetectorChange );
 
-  int nominalSpeed { 50 };
+  int nominalSpeed { 60 };
 
   if(!isOn()) 
   {
