@@ -10,10 +10,10 @@ bool PutVehicleOnLine::setOptimalPositionOnLine()
 {
     bool onPosition {false};
     
-    roadController_.goByTimePeriod( 4, speed_, angle_ );
+    roadController_.goByTimePeriod( 5, speed_, angle_ );
 
     speed_ = 0;
-    angle_ = 30;
+    angle_ = 50;
     roadController_.go( speed_, angle_ );
     while( !isVehicleOnLine() || isPassedFiveSeconds() )
     {
