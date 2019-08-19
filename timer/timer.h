@@ -14,17 +14,16 @@ struct DurationTime
     DurationTime() = default;
     DurationTime( std::chrono::duration<double> initialValue ): duration( initialValue ) {};   
 };
+
 class Timer
 {
     private:
-        std::string id;
         std::chrono::time_point<std::chrono::steady_clock> timerStart;
         std::chrono::time_point<std::chrono::steady_clock> timerStop;
         std::chrono::duration<double> duration;
 
     public:
         Timer() = default;
-        Timer( const std::string& s ): id( s ){};
 
         void start()
         {
@@ -48,5 +47,25 @@ class Timer
         }
 };
 
+class MillisecondsPeriodCounter: public Timer
+{
+    int periodInMilliseconds_ {};
+
+    public:
+        MillisecondsPeriodCounter( int period  ):
+            periodInMilliseconds_( period ) 
+            {
+                Timer::start();
+            };
+        bool isPased()
+        {
+            std::chrono::milliseconds fullCircleDuration( periodInMilliseconds_ );
+            Timer::stop();
+            auto result = fullCircleDuration.count() <= Timer::getDuration().count();
+            if( result )
+                Timer::start();
+            return result ;
+        };
+};
 #endif
 
