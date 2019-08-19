@@ -24,9 +24,9 @@ void ControllerLookingForLine::resetTimeCount()
 
 bool ControllerLookingForLine::isTimeToChangeRadius()
 {
-    std::chrono::seconds fullFullCircleDuration( timeToPassFullCircle );
+    std::chrono::seconds fullCircleDuration( timeToPassFullCircle );
     timeBetweenRadiusChange.stop();
-    auto result = fullFullCircleDuration.count() <= timeBetweenRadiusChange.getDuration().count();
+    auto result = fullCircleDuration.count() <= timeBetweenRadiusChange.getDuration().count();
     return result ;
 };
 
