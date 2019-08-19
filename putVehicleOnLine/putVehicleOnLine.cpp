@@ -57,7 +57,7 @@ bool PutVehicleOnLine::isPassedFiveSeconds()
     {
         fiveSecondsCounter.stop();
         auto timePeriod = fiveSecondsCounter.getDuration();
-        if( timePeriod >= 15s )
+        if( timePeriod >= 5s )
             {
                 countingInProgres = false;
                 return true;
