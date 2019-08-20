@@ -12,6 +12,7 @@ class PutVehicleOnLine
 
     int speed_ { 50 };
     int angle_ { 0 };
+    int rotationTime_ { 5000 };
 
     RoadController& roadController_;
     bool vechicleOnLine_ { false };
@@ -25,7 +26,7 @@ class PutVehicleOnLine
         bool isVehicleOnLine();
     private:
         bool isSetOnLine( Detector& detector );
-        bool isPassedFiveSeconds();
+        bool isPassedRotationTime();
 
 };
 
