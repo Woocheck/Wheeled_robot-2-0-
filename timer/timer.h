@@ -47,12 +47,12 @@ class Timer
         }
 };
 
-class MillisecondsPeriodCounter: public Timer
+class MillisecondIntervalCounter: public Timer
 {
     int periodInMilliseconds_ {};
 
     public:
-        MillisecondsPeriodCounter( int period  ):
+        MillisecondIntervalCounter( int period  ):
             periodInMilliseconds_( period ) 
             {
                 Timer::start();
