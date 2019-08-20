@@ -121,10 +121,12 @@ int main(void)
   }
 }
 
- bool isPassed20ms()
- {
-   return ( millis()%20) == 0;
- };
+bool isPassed20ms()
+{
+  static MillisecondIntervalCounter interval20ms( 20 );
+  return interval20ms.isPased();
+  //  return ( millis()%20) == 0;
+};
 
  bool isOn()
  {
