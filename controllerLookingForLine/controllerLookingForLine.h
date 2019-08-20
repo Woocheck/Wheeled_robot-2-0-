@@ -11,22 +11,20 @@
 class ControllerLookingForLine
 {
     private:
-        Timer timeBetweenRadiusChange;
-        TwoWheelDrive& drive;
-        Detector& lineDetector;
+        TwoWheelDrive& drive_;
+        Detector& lineDetector_;
 
-        int increaseSpeedForBiggerRadius { 5 };
-        int leftWheelSpeed { 50 };
-        int rightWheelSpeed { 0 };
-        int timeToPassFullCircle { 3 };
+        int increaseSpeedForBiggerRadius_ { 5 };
+        int leftWheelSpeed_ { 50 };
+        int rightWheelSpeed_ { 0 };
+        int timeToPassFullCircle_ { 3000 };
         
     public:
         ControllerLookingForLine( TwoWheelDrive& drv, Detector& detector ):
-            drive( drv ),
-            lineDetector( detector ){};
+            drive_( drv ),
+            lineDetector_( detector ){};
 
         void startLooking( int nominalSpeed );
-        void resetTimeCount();
         bool isTimeToChangeRadius();
         bool isFoundTheLine();
         void stopVechicle();

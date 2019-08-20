@@ -17,17 +17,13 @@ void ControllerLookingForLine::startLooking( int nominalSpeed )
     timeBetweenRadiusChange.start();
 };
 
-void ControllerLookingForLine::resetTimeCount()
-{
-    timeBetweenRadiusChange.start();
-};
-
 bool ControllerLookingForLine::isTimeToChangeRadius()
 {
-    std::chrono::seconds fullCircleDuration( timeToPassFullCircle );
-    timeBetweenRadiusChange.stop();
-    auto result = fullCircleDuration.count() <= timeBetweenRadiusChange.getDuration().count();
-    return result ;
+    static MillisecondIntervalCounter intervalForNextRadiusChange( timeToPassFullCircle_ );
+    auto isTime = intervalForNextRadiusChange.isPased();
+    if( isTime )
+        timeToPassFullCircle_ += 5;
+    return isTime;
 };
 
 bool ControllerLookingForLine::isFoundTheLine()
@@ -39,6 +35,7 @@ bool ControllerLookingForLine::isFoundTheLine()
   return !result;
 
 };
+
 void ControllerLookingForLine::stopVechicle()
 {
     drive.stop();
@@ -52,6 +49,5 @@ void ControllerLookingForLine::verifiesMovementCorrectness()
         increaseSpeedForBiggerRadius++;
         rightWheelSpeed += increaseSpeedForBiggerRadius;
         drive.driveControll( leftWheelSpeed, rightWheelSpeed ); 
-        resetTimeCount();
     } 
 };
