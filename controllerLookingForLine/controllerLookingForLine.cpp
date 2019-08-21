@@ -11,10 +11,9 @@
 
 void ControllerLookingForLine::startLooking( int nominalSpeed )
 {
-    leftWheelSpeed = nominalSpeed;
+    leftWheelSpeed_ = nominalSpeed;
     int rightWheelSpeed { 0 };
-    drive.driveControll( leftWheelSpeed, rightWheelSpeed );
-    timeBetweenRadiusChange.start();
+    drive_.driveControll( leftWheelSpeed_, rightWheelSpeed );
 };
 
 bool ControllerLookingForLine::isTimeToChangeRadius()
@@ -28,26 +27,24 @@ bool ControllerLookingForLine::isTimeToChangeRadius()
 
 bool ControllerLookingForLine::isFoundTheLine()
 {
-  lineDetector.readSensorsState();
-  std::vector<int> sensorsState = lineDetector.getSensorsState();
+  lineDetector_.readSensorsState();
+  std::vector<int> sensorsState = lineDetector_.getSensorsState();
   bool result = std::any_of( std::begin( sensorsState ), std::end( sensorsState ), 
                              []( const int & sensor ) { return sensor != 1; } );
-  return !result;
+  return result;
 
 };
 
 void ControllerLookingForLine::stopVechicle()
 {
-    drive.stop();
+    drive_.stop();
 }
 
 void ControllerLookingForLine::verifiesMovementCorrectness()
 {
-    
     if( isTimeToChangeRadius() )
     {
-        increaseSpeedForBiggerRadius++;
-        rightWheelSpeed += increaseSpeedForBiggerRadius;
-        drive.driveControll( leftWheelSpeed, rightWheelSpeed ); 
+        rightWheelSpeed_ += increaseSpeedForBiggerRadius_;
+        drive_.driveControll( leftWheelSpeed_, rightWheelSpeed_ ); 
     } 
 };

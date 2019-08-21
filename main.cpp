@@ -78,13 +78,13 @@ int main(void)
   wiringPiISR (gpio.rearSensor_5, INT_EDGE_BOTH, &readDetectorChange );
 
   int nominalSpeed { 60 };
-
+  
   if(!isOn()) 
   {
     ControllerLookingForLine lineSeeker( drive, frontLineDetector );
     lineSeeker.startLooking( nominalSpeed );
     
-    while( lineSeeker.isFoundTheLine() )
+    while( !lineSeeker.isFoundTheLine() )
     {
       lineSeeker.verifiesMovementCorrectness();
     }
