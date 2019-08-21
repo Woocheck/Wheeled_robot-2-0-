@@ -61,7 +61,8 @@ class MillisecondIntervalCounter: public Timer
         {
             std::chrono::milliseconds fullCircleDuration( periodInMilliseconds_ );
             Timer::stop();
-            auto result = fullCircleDuration.count() <= std::chrono::duration_cast<std::chrono::milliseconds>(Timer::getDuration()).count();
+            auto durationInMs = std::chrono::duration_cast<std::chrono::milliseconds>(Timer::getDuration());
+            auto result = fullCircleDuration.count() <= durationInMs.count();
             if( result )
                 Timer::start();
             return result ;
