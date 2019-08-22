@@ -10,9 +10,9 @@ bool PutVehicleOnLine::setOptimalPositionOnLine()
 {
     bool onPosition {false};
     
-    speed_ = 60;
+    speed_ = 50;
     angle_ = 0;
-    int time { 2 };
+    int time { 2000 };
     roadController_.goByTimePeriod( time, speed_, angle_ );
 
     speed_ = 0;
