@@ -25,20 +25,21 @@ void RoadController::go( const int& speed, const int& angle )
 {
     _nominalSpeed = speed;
     _angle = angle;
-    _drive.driveControll( _nominalSpeed + _angle,
-                              _nominalSpeed - _angle );
+    _drive.driveControll( _nominalSpeed - _angle,
+                              _nominalSpeed + _angle );
 }
 
 void RoadController::setTimePeriod( const int& time)
 {
     _timePeriod = time;
-    timer.start();
 };
 
 bool RoadController::isPeriodPassed()
-{
+{/*
     std::chrono::seconds periodInSeconds( _timePeriod );
     timer.stop();
     auto result = periodInSeconds.count() <= timer.getDuration().count();
-    return result ;
+    return result ;*/
+    static MillisecondIntervalCounter rideInterval( _timePeriod );
+    return rideInterval.isPased();;
 };
