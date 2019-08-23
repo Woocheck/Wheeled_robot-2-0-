@@ -17,16 +17,16 @@ DcMotor::~DcMotor()
 
 void DcMotor::setDirection(Direction demandedDirection)
 {
-	DcMotor::direction=demandedDirection;
-	if (direction==Direction::forward)
+	direction_ = demandedDirection;
+	if (direction_ == Direction::forward)
 	{
-		digitalWrite (pinA, HIGH); 
-		digitalWrite (pinB,  LOW); 
+		digitalWrite (pinA_, HIGH); 
+		digitalWrite (pinB_,  LOW); 
 	}
-	else if(direction==Direction::backward)
+	else if(direction_ == Direction::backward)
 	{
-		digitalWrite ( pinA, LOW ); 
-		digitalWrite ( pinB, HIGH );
+		digitalWrite ( pinA_, LOW ); 
+		digitalWrite ( pinB_, HIGH );
 	}
 }
 
@@ -35,30 +35,30 @@ void DcMotor::setSpeed( volatile int demandedSpeed )
 {	
 	if(demandedSpeed < 0)
 	{
-		speed = 0;
+		speed_ = 0;
 	}
 	else if( demandedSpeed > 100 )
 	{
-		speed = 100;
+		speed_ = 100;
 	}
 	else
 	{
-		speed = demandedSpeed;
+		speed_ = demandedSpeed;
 	}
 	
-	softPwmWrite( pinEnable, speed);
+	softPwmWrite( pinEnable_, speed);
 }
 
 void DcMotor::start()
 {
-	setDirection( direction );
-	softPwmWrite( pinEnable, speed );
+	setDirection( direction_ );
+	softPwmWrite( pinEnable_, speed_ );
 }
 
 void DcMotor::stop()
 {
-	digitalWrite ( pinA, LOW ); 
-	digitalWrite ( pinB, LOW );
+	digitalWrite ( pinA_, LOW ); 
+	digitalWrite ( pinB_, LOW );
 	setSpeed( 0 );
 }
 
