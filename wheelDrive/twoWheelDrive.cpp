@@ -11,8 +11,8 @@
 
 void TwoWheelDrive::driveControll( int leftSpeed, int rightSpeed )
 {
-	leftDC.control( leftSpeed );
-	rightDC.control( rightSpeed );
+	leftDC_.control( leftSpeed );
+	rightDC_.control( rightSpeed );
 };
 
 void TwoWheelDrive::stop()

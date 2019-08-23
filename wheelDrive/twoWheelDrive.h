@@ -19,8 +19,8 @@ class TwoWheelDrive
 {
 	private: 
 		Gpio gpio;              
-		DcMotor leftDC;
-		DcMotor rightDC;
+		DcMotor leftDC_;
+		DcMotor rightDC_;
 
 	public:
 		TwoWheelDrive():
