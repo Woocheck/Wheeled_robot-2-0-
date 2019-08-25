@@ -30,17 +30,11 @@
 #include "./RoadController/RoadController.h"
 #include "./putVehicleOnLine/putVehicleOnLine.h"
 
-
-
-void regulationInLineFollowerMode();
-void lookingForLineMode();
 bool isPassed20ms();
 bool isOn();
 void readLeftEncoderChange();
 void readRightEncoderChange();
 void readDetectorChange();
-
-bool isLineDetected();
 
 Gpio gpio;
 Detector frontLineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
