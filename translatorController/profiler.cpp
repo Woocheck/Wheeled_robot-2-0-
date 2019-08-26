@@ -54,7 +54,7 @@ bool Profiler::isReachedHisDestination()
         return false;
 };
 
-int Profiler::getNextStepValue()
+int Profiler::getPasedRoadValue()
 {
     calculate();
     return passedRoad_;
