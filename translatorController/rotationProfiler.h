@@ -5,13 +5,11 @@
 
 class RotationProfiler: public Profiler
 {
-    TranslationProfiler(int acceleration , int target):
-    {
-        Profiler( acceleration, targetSpeed );
-    }
+    RotationProfiler(int acceleration , int targetSpeed):
+                Profiler( acceleration, targetSpeed ){};
 
     private:
     int calculateNextStepSeed();
-} 
+};
 
 #endif
