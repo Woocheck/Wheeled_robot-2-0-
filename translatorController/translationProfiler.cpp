@@ -3,5 +3,5 @@
 
 int TranslationProfiler::calculateNextStepSeed()
 {
-    return Profiler::currentSpeed_;
+    return  Profiler::passedRoad_;
 }
