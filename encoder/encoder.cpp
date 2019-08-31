@@ -14,34 +14,34 @@
 
 void Encoder::resetNumberOfPulses()
 {
-  numberOfPulses_ = 0;
+  numberOfPulses = 0;
 }
 void Encoder::readDistance()
 {
-  int currentStatusPinA_ = digitalRead (pinA);
-  if((previousStatusPinA_ == LOW) && currentStatusPinA_==HIGH)
+  int currentStatusPinA = digitalRead (pinA);
+  if((previousStatusPinA == LOW) && currentStatusPinA==HIGH)
   {
-    int statusPinB_ = digitalRead (pinB);
-    if(statusPinB_ == LOW && rotationDirection_ == Direction::forward )
+    int statusPinB = digitalRead (pinB);
+    if(statusPinB == LOW && rotationDirection == Direction::forward )
     {
-      rotationDirection_ == Direction::backward;
+      rotationDirection == Direction::backward;
     }
-    else if(statusPinB_ == HIGH && rotationDirection_ == Direction::backward )
+    else if(statusPinB == HIGH && rotationDirection == Direction::backward )
     {
-      rotationDirection_ == Direction::forward;
+      rotationDirection == Direction::forward;
     }
   }
-  previousStatusPinA_ = currentStatusPinA_;
+  previousStatusPinA = currentStatusPinA;
 
-  if(rotationDirection_ == Direction::forward)  
-    numberOfPulses_++;
+  if(rotationDirection == Direction::forward)  
+    numberOfPulses++;
   else  
-    numberOfPulses_--;
+    numberOfPulses--;
 
 }
 
 int Encoder::getNumeberOfPulses()
 {
-  return numberOfPulses_;
+  return numberOfPulses;
 };
 
