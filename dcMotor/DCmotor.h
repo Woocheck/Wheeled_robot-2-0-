@@ -12,35 +12,32 @@
 
 #include <wiringPi.h>
 #include <softPwm.h>
-#include "./engine.h"
-class DcMotor:
+
+class DcMotor
 {
 
 private:
 	enum class Direction { forward, backward };
-	volatile const int pinA_;
-	volatile const int pinB_;
-	volatile const int pinEnable_;
+	volatile const int pinA;
+	volatile const int pinB;
+	volatile const int pinEnable;
 
-	volatile Direction direction_ = Direction::forward;
-	volatile int speed_ { 0 };
+	volatile Direction direction = Direction::forward;
+	volatile int speed { 0 };
 
 
 public:
 	
 	DcMotor() = delete;
 	DcMotor( const int a, const int b, const int enable ):
-					pinA_ { a },
-					pinB_ { b },
-					pinEnable_ { enable } 
+					pinA { a },
+					pinB { b },
+					pinEnable { enable } 
 	{					
 		wiringPiSetup();
-		pinMode ( pinA_, OUTPUT );
-		pinMode ( pinB_, OUTPUT ) ;
-		
-		int initialValue { 100 };
-		int pwmRange { 100 };
-		softPwmCreate( pinEnable_, initialValue, pwmRange );
+		pinMode ( pinA, OUTPUT );
+		pinMode ( pinB, OUTPUT ) ;
+		softPwmCreate( pinEnable, 100, 100 );
 	};
 	
 	~DcMotor(); 
