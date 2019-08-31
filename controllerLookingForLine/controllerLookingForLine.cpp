@@ -12,8 +12,8 @@
 void ControllerLookingForLine::startLooking( int nominalSpeed )
 {
     leftWheelSpeed_ = nominalSpeed;
-    int rightWheelSpeed_ { 0 };
-    drive_.driveControll( leftWheelSpeed_, rightWheelSpeed_ );
+    int rightWheelSpeed { 0 };
+    drive_.driveControll( leftWheelSpeed_, rightWheelSpeed );
 };
 
 bool ControllerLookingForLine::isTimeToChangeRadius()
