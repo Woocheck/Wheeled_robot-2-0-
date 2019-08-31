@@ -19,13 +19,13 @@ class TwoWheelDrive
 {
 	private: 
 		Gpio gpio;              
-		DcMotor leftDC_;
-		DcMotor rightDC_;
+		DcMotor leftDC;
+		DcMotor rightDC;
 
 	public:
 		TwoWheelDrive():
-			leftDC_(  gpio.engineLeftA, gpio.engineLeftB , gpio.engineLeftEnable ),
-			rightDC_( gpio.engineRightA, gpio.engineRightB , gpio.engineRightEnable )
+			leftDC(  gpio.engineLeftA, gpio.engineLeftB , gpio.engineLeftEnable ),
+			rightDC( gpio.engineRightA, gpio.engineRightB , gpio.engineRightEnable )
 		{
 			wiringPiSetup();
 		};
