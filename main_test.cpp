@@ -54,8 +54,9 @@ Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
 TwoWheelDrive drive;
 RoadController mainController( leftEncoder, rightEencoder, drive );
 
-
-
+ControllerLookingForLine lineSeeker( drive, frontLineDetector );
+PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
+ControllerLineFollower lineFollowerControl( drive );
 
 
 int main(void)
@@ -76,15 +77,17 @@ int main(void)
   wiringPiISR (gpio.rearSensor_3, INT_EDGE_BOTH, &readDetectorChange ); 
   wiringPiISR (gpio.rearSensor_4, INT_EDGE_BOTH, &readDetectorChange ); 
   wiringPiISR (gpio.rearSensor_5, INT_EDGE_BOTH, &readDetectorChange );
-
-  int nominalSpeed { 60 };
   
+  int nominalSpeed { 50 };
+  lineFollowerControl.setSpeed( nominalSpeed );
+
+  
+
   if(!isOn()) 
   {
-    ControllerLookingForLine lineSeeker( drive, frontLineDetector );
     lineSeeker.startLooking( nominalSpeed );
     
-    while( !lineSeeker.isFoundTheLine() )
+    while( lineSeeker.isNotFoundTheLine() )
     {
       lineSeeker.verifiesMovementCorrectness();
     }
@@ -92,46 +95,37 @@ int main(void)
     lineSeeker.stopVechicle();
   }
 
-  if(!isOn())
+     
+  if( !putOnLineController.isVehicleOnLine() )
+ {   
+    putOnLineController.setOptimalPositionOnLine();
+ }
+    
+  while(1)
   {
-    PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
-    if( !putOnLineController.isVehicleOnLine() )
-      putOnLineController.setOptimalPositionOnLine();
-  }
+		if( !isOn() && isPassed20ms() )
+		{
+			frontLineDetector.readSensorsState();
+	    lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
+      lineFollowerControl.calculateError();
 
-  if(!isOn())
-  {
-    ControllerLineFollower lineFollowerControl( drive );
-    lineFollowerControl.setSpeed( nominalSpeed );
-
-    while(1)
-    {
-      lineFollowerControl.setSpeed( nominalSpeed );
-
-      if( !isOn() && isPassed20ms() )
-      {
-       	frontLineDetector.readSensorsState();
-	      lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
-        lineFollowerControl.calculateError();
-
-	      int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
-        lineFollowerControl.setDirection( correction );	
-      }
-    }
+	    int correction = static_cast<int>( lineFollowerControl.getCalculatedError() );
+      lineFollowerControl.setDirection( correction );	
+		}
   }
 }
 
-bool isPassed20ms()
-{
-  static MillisecondIntervalCounter interval20ms( 20 );
-  return interval20ms.isPased();
-  //  return ( millis()%20) == 0;
-};
+
+
+ bool isPassed20ms()
+ {
+	 return ( millis()%20) == 0;
+ };
 
  bool isOn()
  {
    pinMode ( gpio.OnButton, INPUT ) ;
-   return digitalRead ( gpio.OnButton ); 
+	 return digitalRead ( gpio.OnButton ); 
  }
 
 void readRightEncoderChange()
@@ -146,8 +140,8 @@ void readLeftEncoderChange()
 
 void readDetectorChange()
 {
-  frontLineDetector.readSensorsState();
-  rearLineDetector.readSensorsState();
+	frontLineDetector.readSensorsState();
+	rearLineDetector.readSensorsState();
   
   frontLineDetector.printSensorsState();
   rearLineDetector.printSensorsState();
