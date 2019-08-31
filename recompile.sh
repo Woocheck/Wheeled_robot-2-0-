@@ -3,7 +3,7 @@
 g++ \
 main.cpp \
 ./wheelDrive/twoWheelDrive.cpp \
-#./translationRotation/controllerTranslationRotation.cpp \
+./translationRotation/controllerTranslationRotation.cpp \
 ./RoadController/RoadController.cpp \
 ./regulatorPD/regulatorPD.cpp \
 ./putVehicleOnLine/putVehicleOnLine.cpp \
