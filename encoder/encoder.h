@@ -36,7 +36,7 @@ class Encoder
       pinMode ( pinA_, INPUT ) ;
 	    pinMode ( pinB_, INPUT ) ;
       
-      rotationDirection = Direction::forward;
+      rotationDirection_ = Direction::forward;
   }
   
   void resetNumberOfPulses();

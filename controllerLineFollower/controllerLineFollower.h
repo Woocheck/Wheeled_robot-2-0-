@@ -24,8 +24,8 @@ private:
 
 public:
    ControllerLineFollower( TwoWheelDrive& dr ):
-      drive( dr ), 
-      regulator( Kp_, Kd_ ) {};
+      drive_( dr ), 
+      regulator_( Kp_, Kd_ ) {};
    ~ControllerLineFollower(){};
 
    void setSpeed( int speed );

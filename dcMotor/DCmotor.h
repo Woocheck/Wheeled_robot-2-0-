@@ -13,7 +13,7 @@
 #include <wiringPi.h>
 #include <softPwm.h>
 #include "./engine.h"
-class DcMotor: public Engine
+class DcMotor:
 {
 
 private:
