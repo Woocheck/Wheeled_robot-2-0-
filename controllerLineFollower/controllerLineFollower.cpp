@@ -3,12 +3,12 @@
 
 void ControllerLineFollower::setSpeed( int demandetSpeed )
 {
-	speed_ = demandetSpeed;
+	speed = demandetSpeed;
 };
 
 int ControllerLineFollower::getSpeed()
 {
-	return speed_;
+	return speed;
 };
 
 void ControllerLineFollower::setSensorsState( std::vector<int> sensorsToWrite )
@@ -16,9 +16,9 @@ void ControllerLineFollower::setSensorsState( std::vector<int> sensorsToWrite )
    for( int i {0} ; i < 5 ; i++ )
    {
       if( sensorsToWrite[i] ) 
-        sensorsState_.at( i ) = 0;
+        sensorsState.at( i ) = 0;
       else
-        sensorsState_.at( i ) = 1;
+        sensorsState.at( i ) = 1;
    }
 };
 
@@ -29,52 +29,52 @@ void ControllerLineFollower::calculateError()
 	
 	int importance = 10;						
 	
-	if( offTheRoad_ )	importance = 5;
+	if( offTheRoad )	importance = 5;
 	
 	for( int i=0; i<5; i++ )
 	{
 		errorValue += sensorsState.at( i )*( i-2 ) * importance;
-		numberOfDetections += sensorsState_.at( i );
+		numberOfDetections += sensorsState.at( i );
 	}
 	
 	if( numberOfDetections != 0 )	
 	{
 		errorValue /= numberOfDetections;
-		previousError_ = errorValue;
+		previousError = errorValue;
 	}
 	else				
 	{
-		if( previousError_ < -20 )	
+		if( previousError < -20 )	
 		{
 			errorValue = -40;	
-			offTheRoad_ = 1;
+			offTheRoad = 1;
 		}
-		else if( previousError_ > 20 )			
+		else if( previousError > 20 )			
 		{
 			errorValue = 40;					
-			offTheRoad_ = 2;		
+			offTheRoad = 2;		
 		}
 		else
 			errorValue = 0;
 	}
 	
-	if( offTheRoad_ == 1 && errorValue >= 0 )	
-	  offTheRoad_ = 0;
-	else if( offTheRoad_ == 2 && errorValue <= 0 )
-	  offTheRoad_ = 0;
+	if( offTheRoad == 1 && errorValue >= 0 )	
+	  offTheRoad = 0;
+	else if( offTheRoad == 2 && errorValue <= 0 )
+	  offTheRoad = 0;
 	
-	calculatedError_ = regulator_.calculate( errorValue );
+	calculatedError = regulator.calculate( errorValue );
 }
 
 double ControllerLineFollower::getCalculatedError()
 {
-   return calculatedError_;
+   return calculatedError;
 }
 
 void ControllerLineFollower::setDirection( int correction )
 {
-	int leftWheelSpeed = speed_ + correction ;
-	int rightWheelSpeed = speed_ - correction ;
+	int leftWheelSpeed = speed + correction ;
+	int rightWheelSpeed = speed - correction ;
 
 	drive.driveControll( leftWheelSpeed, rightWheelSpeed );
 };

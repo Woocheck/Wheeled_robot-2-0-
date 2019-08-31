@@ -9,23 +9,23 @@
 class ControllerLineFollower
 {
 private:
-   std::vector<int> sensorsState_ { 0, 0, 0, 0, 0 };
-   double calculatedError_ {0};
-   int previousError_ {0};
-   int offTheRoad_ {0};
-   int error_ {0};
-   const double Kp_ {2};
-   const double Kd_ {0.5};
+   std::vector<int> sensorsState { 0, 0, 0, 0, 0 };
+   double calculatedError {0};
+   int previousError {0};
+   int offTheRoad {0};
+   int error {0};
+   const double Kp {2};
+   const double Kd {0.5};
 
-   int speed_ {50};
+   int speed {50};
 
-   TwoWheelDrive& drive_;
-   RegulatorPD regulator_;
+   TwoWheelDrive& drive;
+   RegulatorPD regulator;
 
 public:
    ControllerLineFollower( TwoWheelDrive& dr ):
-      drive_( dr ), 
-      regulator_( Kp_, Kd_ ) {};
+      drive( dr ), 
+      regulator( Kp, Kd ) {};
    ~ControllerLineFollower(){};
 
    void setSpeed( int speed );
