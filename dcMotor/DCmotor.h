@@ -13,7 +13,14 @@
 #include <wiringPi.h>
 #include <softPwm.h>
 
-class DcMotor
+class Engine
+{
+	public:
+		virtual ~Engine() = 0;
+		virtual void contol( int demandedSpeed ) = 0;
+};
+
+class DcMotor: public Engine
 {
 
 private:
