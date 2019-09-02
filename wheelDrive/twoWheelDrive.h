@@ -9,6 +9,7 @@
 #ifndef __TWO_WHEEL_DRIVE_CLASS_H__
 #define __TWO_WHEEL_DRIVE_CLASS_H__
 
+#include <memory>
 
 #include "../pin_settings.h"
 #include "../dcMotor/DCmotor.h"
@@ -17,15 +18,14 @@
 
 class TwoWheelDrive
 {
-	private: 
-		Gpio gpio;              
-		Engine leftDC;
-		Engine rightDC;
+	private:               
+		std::shared_ptr<Engine> leftDC;
+		std::shared_ptr<Engine> rightDC;
 
 	public:
-		TwoWheelDrive():
-			leftDC(  gpio.engineLeftA, gpio.engineLeftB , gpio.engineLeftEnable ),
-			rightDC( gpio.engineRightA, gpio.engineRightB , gpio.engineRightEnable )
+		TwoWheelDrive( std::shared_ptr<Engine> lDC, std::shared_ptr<Engine> rDC ):
+			leftDC( std::move( lDC ) ),
+			rightDC( std::move( rDC ))
 		{
 			wiringPiSetup();
 		};
