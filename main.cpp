@@ -51,7 +51,10 @@ Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor
 Encoder leftEncoder( gpio.encoderLeftA, gpio.encoderLeftB );
 Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
 
-TwoWheelDrive drive;
+DcMotor leftDc( gpio.engineLeftA, gpio.engineLeftB , gpio.engineLeftEnable );
+DcMotor rightDc( gpio.engineRightA, gpio.engineRightB , gpio.engineRightEnable );
+TwoWheelDrive drive( std::make_shared<DcMotor>( leftDc ), std::make_shared<DcMotor>( rightDc ));
+
 RoadController mainController( leftEncoder, rightEencoder, drive );
 
 
