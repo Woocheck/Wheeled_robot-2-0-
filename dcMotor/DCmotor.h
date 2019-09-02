@@ -16,8 +16,7 @@
 class Engine
 {
 	public:
-		virtual ~Engine() = 0;
-		virtual void contol( int demandedSpeed ) = 0;
+		virtual void control( int demandedSpeed ) = 0;
 };
 
 class DcMotor: public Engine
@@ -58,8 +57,6 @@ private:
 	void start();
 	void stop();
 
-	DcMotor( const DcMotor &c );
-	DcMotor& operator=( const DcMotor &c );
 }; 
 
 #endif 
