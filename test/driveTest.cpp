@@ -8,21 +8,21 @@ using ::testing::AtLeast;
 using ::testing::Return;
 using ::testing::_;
 
-class TestingMotor: public DcMotor
+class TestingMotor: public Engine
 {
     public:
-        MOCK_METHOD1( control, void ( int speed ));
-}
+        MOCK_METHOD1( control, void ( int demandedSpeed ));
+};
 
 TEST( DriveTest, CallDcMotor )
 {
-    TestingMotor left( 11, 22, 11);
-    TestingMotor right( 1, 2, 3 );
+    TestingMotor left(_);
+    TestingMotor right(_);
 
-    TwoWheelDrive drive( std::make_shared<DcMotor>( left ), std::make_shared<DcMotor>( right ));
+    TwoWheelDrive drive( std::make_shared<Engine>( left ), std::make_shared<Engine>( right ));
 
-    EXPECT_CALL( left, comtrol( Ge( 0 ) )).Times(1);
-    EXPECT_CALL( right, comtrol( Ge( 0 ) )).Times(1);
+    EXPECT_CALL( left, control( testing::Ge( 0 ) )).Times(1);
+    EXPECT_CALL( right, control( testing::Ge( 0 ) )).Times(1);
 
     
 
