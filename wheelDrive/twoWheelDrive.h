@@ -14,8 +14,6 @@
 #include "../pin_settings.h"
 #include "../dcMotor/DCmotor.h"
 
-
-
 class TwoWheelDrive
 {
 	private:               
