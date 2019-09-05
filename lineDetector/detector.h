@@ -5,14 +5,12 @@
 * Author: Woocheck
 */
 
-
 #ifndef __DETECTOR_H__
 #define __DETECTOR_H__
 
 #include <vector>
 #include <iostream>
 #include <wiringPi.h>
-
 
 class Detector 
 {
