@@ -33,7 +33,6 @@ class TwoWheelDrive
 	private:
 		TwoWheelDrive( const TwoWheelDrive &c );
 		TwoWheelDrive& operator=( const TwoWheelDrive &c );
-
 }; 
 
 #endif 
