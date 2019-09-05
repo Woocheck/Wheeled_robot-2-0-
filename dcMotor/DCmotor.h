@@ -15,14 +15,14 @@
 
 class Engine
 {
-	public:
-		virtual void control( int demandedSpeed ) = 0;
+  public:
+	virtual void control( int demandedSpeed ) = 0;
 };
 
 class DcMotor: public Engine
 {
 
-private:
+  private:
 	enum class Direction { forward, backward };
 	volatile const int pinA;
 	volatile const int pinB;
@@ -32,8 +32,7 @@ private:
 	volatile int speed { 0 };
 
 
-public:
-	
+  public:	
 	DcMotor() = delete;
 	DcMotor( const int a, const int b, const int enable ):
 					pinA { a },
@@ -45,13 +44,11 @@ public:
 		pinMode ( pinB, OUTPUT ) ;
 		softPwmCreate( pinEnable, 100, 100 );
 	};
-	
 	~DcMotor(); 
 				   						
 	void control( int demanded_speed );
 	
-private:
-
+  private:
 	void setSpeed( int demanded_speed );
 	void setDirection( Direction demandedDirection );
 	void start();
