@@ -19,8 +19,6 @@ Pomiar prędkości: 2 enkodery 16 impulsów na obrót (po przełożeniu 1920 imp
 
 Wykrywanie trasy: Dwa moduły z czujnikami śledzenia linii TCRT5000L.
 
-Wykrywanie przeszkód: ultradźwiękowy czujnik odległości HC - SR05.
-
 Oprogramowanie:
 
 Sterowanie robota będzie wykonywanie w oparciu o Raspberry Pi 3 B+ z systemem operacyjnym Linux Raspbian. Oprogramowanie sterujące napisane w języku C++, z wykorzystaniem biblioteki WiringPi (http://wiringpi.com/).
