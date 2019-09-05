@@ -12,7 +12,7 @@ private:
    std::vector<int> sensorsState { 0, 0, 0, 0, 0 };
    double calculatedError {0};
    int previousError {0};
-   int offTheRoad {0};
+   int isOfTheRoad {0};
    int error {0};
    const double Kp {2};
    const double Kd {0.5};
