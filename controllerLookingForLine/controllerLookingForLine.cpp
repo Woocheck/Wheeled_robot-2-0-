@@ -2,8 +2,6 @@
 #include <vector>
 #include <algorithm>
 
-
-
 #include <wiringPi.h>
 #include "../wheelDrive/twoWheelDrive.h"
 #include "../timer/timer.h"
