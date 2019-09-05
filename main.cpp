@@ -27,7 +27,6 @@
 #include "./controllerLineFollower/controllerLineFollower.h"
 #include "./controllerLookingForLine/controllerLookingForLine.h"
 #include "./timer/timer.h"
-#include "./RoadController/RoadController.h"
 #include "./putVehicleOnLine/putVehicleOnLine.h"
 
 
@@ -43,6 +42,7 @@ void readDetectorChange();
 bool isLineDetected();
 
 Gpio gpio;
+
 Detector frontLineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
                        gpio.frontSensor_4, gpio.frontSensor_5 );
 Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor_3,
@@ -55,13 +55,7 @@ DcMotor leftDc( gpio.engineLeftA, gpio.engineLeftB , gpio.engineLeftEnable );
 DcMotor rightDc( gpio.engineRightA, gpio.engineRightB , gpio.engineRightEnable );
 TwoWheelDrive drive( std::make_shared<DcMotor>( leftDc ), std::make_shared<DcMotor>( rightDc ));
 
-RoadController mainController( leftEncoder, rightEencoder, drive );
-
-
-
-
-
-int main(void)
+int main( void )
 {
   wiringPiSetup();
 	
@@ -82,7 +76,7 @@ int main(void)
 
   int nominalSpeed { 60 };
   
-  if(!isOn()) 
+  if( isOn()) 
   {
     ControllerLookingForLine lineSeeker( drive, frontLineDetector );
     lineSeeker.startLooking( nominalSpeed );
@@ -95,14 +89,14 @@ int main(void)
     lineSeeker.stopVechicle();
   }
 
-  if(!isOn())
+  if( isOn() )
   {
     PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
     if( !putOnLineController.isVehicleOnLine() )
       putOnLineController.setOptimalPositionOnLine();
   }
 
-  if(!isOn())
+  if( isOn() )
   {
     ControllerLineFollower lineFollowerControl( drive );
     lineFollowerControl.setSpeed( nominalSpeed );
@@ -111,7 +105,7 @@ int main(void)
     {
       lineFollowerControl.setSpeed( nominalSpeed );
 
-      if( !isOn() && isPassed20ms() )
+      if( isOn() && isPassed20ms() )
       {
        	frontLineDetector.readSensorsState();
 	      lineFollowerControl.setSensorsState( frontLineDetector.getSensorsState() );
@@ -128,7 +122,6 @@ bool isPassed20ms()
 {
   static MillisecondIntervalCounter interval20ms( 20 );
   return interval20ms.isPased();
-  //  return ( millis()%20) == 0;
 };
 
  bool isOn()
@@ -151,9 +144,6 @@ void readDetectorChange()
 {
   frontLineDetector.readSensorsState();
   rearLineDetector.readSensorsState();
-  
-  frontLineDetector.printSensorsState();
-  rearLineDetector.printSensorsState();
 };
 
 
