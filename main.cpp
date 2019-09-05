@@ -28,6 +28,7 @@
 #include "./controllerLookingForLine/controllerLookingForLine.h"
 #include "./timer/timer.h"
 #include "./putVehicleOnLine/putVehicleOnLine.h"
+#include "./RoadControler/RoadControler.h"
 
 
 
@@ -54,6 +55,7 @@ Encoder rightEencoder( gpio.encoderRightA, gpio.encoderRightB );
 DcMotor leftDc( gpio.engineLeftA, gpio.engineLeftB , gpio.engineLeftEnable );
 DcMotor rightDc( gpio.engineRightA, gpio.engineRightB , gpio.engineRightEnable );
 TwoWheelDrive drive( std::make_shared<DcMotor>( leftDc ), std::make_shared<DcMotor>( rightDc ));
+RoadControler roadControler( leftEncoder, rightEencoder, drive );
 
 int main( void )
 {
@@ -91,7 +93,7 @@ int main( void )
 
   if( isOn() )
   {
-    PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, mainController );
+    PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, Controler );
     if( !putOnLineController.isVehicleOnLine() )
       putOnLineController.setOptimalPositionOnLine();
   }
