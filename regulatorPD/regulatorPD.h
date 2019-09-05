@@ -8,26 +8,22 @@
 #ifndef __REGUlATOR_PD_CLASS_H__
 #define __REGUlATOR_PD_CLASS_H__
 
-
-
-
 class RegulatorPD 
 {
    private:
-   
-   double proportionalParameter;
-   double derivateParameter;
-   double previousError {0};
-   double integral;
+      double proportionalParameter;
+      double derivateParameter;
+      double previousError {0};
+      double integral;
 
    public:
-   RegulatorPD() = default;
-   RegulatorPD( double Kp, double Kd ):
-               proportionalParameter ( Kp ),
-               derivateParameter ( Kd ) {};
-   ~RegulatorPD() {};
+      RegulatorPD() = default;
+      RegulatorPD( double Kp, double Kd ):
+                  proportionalParameter ( Kp ),
+                  derivateParameter ( Kd ) {};
+      ~RegulatorPD() {};
    
-   double calculate( double );
+      double calculate( double );
 };   
 
 #endif
