@@ -16,37 +16,35 @@
 class Encoder 
 {
   private:
-   const int pinA;
-   const int pinB;
-   int currentStatusPinA;
-   int previousStatusPinA;
-   int statusPinB;
-   int numberOfPulses;
+  	const int pinA;
+   	const int pinB;
+   	int currentStatusPinA;
+   	int previousStatusPinA;
+   	int statusPinB;
+   	int numberOfPulses;
    
-   enum class Direction { forward, backward };
-   Direction rotationDirection;
-   bool wayside;
-   bool result;
+   	enum class Direction { forward, backward };
+   	Direction rotationDirection;
+   	bool wayside;
+   	bool result;
   
   
   public:
-  Encoder() = default;
-  Encoder( int a, int b ):
-         pinA { a },
-         pinB { b }
-  {
-      wiringPiSetup();
-      pinMode ( pinA, INPUT ) ;
-	    pinMode ( pinB, INPUT ) ;
+  	Encoder() = default;
+  	Encoder( int a, int b ):
+         	pinA { a },
+         	pinB { b }
+  	{
+      		wiringPiSetup();
+      		pinMode ( pinA, INPUT ) ;
+	    	pinMode ( pinB, INPUT ) ;
       
-      rotationDirection = Direction::forward;
-  }
+      		rotationDirection = Direction::forward;
+  	}
   
-  void resetNumberOfPulses();
-  void readDistance();
-  int getNumeberOfPulses();
-
-      
+  	void resetNumberOfPulses();
+  	void readDistance();
+  	int getNumeberOfPulses();
 };
   
 
