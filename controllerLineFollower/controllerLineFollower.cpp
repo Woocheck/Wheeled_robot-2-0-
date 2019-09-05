@@ -29,7 +29,8 @@ void ControllerLineFollower::calculateError()
 	
 	int importance = 10;						
 	
-	if( offTheRoad )	importance = 5;
+	if( isOffTheRoad )	
+	    importance = 5;
 	
 	for( int i=0; i<5; i++ )
 	{
@@ -58,10 +59,10 @@ void ControllerLineFollower::calculateError()
 			errorValue = 0;
 	}
 	
-	if( offTheRoad == 1 && errorValue >= 0 )	
-	  offTheRoad = 0;
-	else if( offTheRoad == 2 && errorValue <= 0 )
-	  offTheRoad = 0;
+	if( isOfTheRoad == 1 && errorValue >= 0 )	
+	  isOfTheRoadd = 0;
+	else if( isOfTheRoad == 2 && errorValue <= 0 )
+	  isOfTheRoad = 0;
 	
 	calculatedError = regulator.calculate( errorValue );
 }
