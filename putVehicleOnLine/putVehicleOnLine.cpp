@@ -13,11 +13,11 @@ bool PutVehicleOnLine::setOptimalPositionOnLine()
     speed_ = 50;
     angle_ = 0;
     int time { 2000 };
-    roadController_.goByTimePeriod( time, speed_, angle_ );
+    roadControler_.goByTimePeriod( time, speed_, angle_ );
 
     speed_ = 0;
     angle_ = 80;
-    roadController_.go( speed_, angle_ );
+    roadControler_.go( speed_, angle_ );
     while( !isVehicleOnLine() || isPassedRotationTime() )
     {
         if( isVehicleOnLine() )

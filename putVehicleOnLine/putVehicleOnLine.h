@@ -2,7 +2,7 @@
 #define __PUT_VEHICLE_ONLINE__
 
 #include "../lineDetector/detector.h"
-#include "../RoadController/RoadController.h"
+#include "../RoadControler/RoadControler.h"
 
 class PutVehicleOnLine
 {
@@ -14,14 +14,14 @@ class PutVehicleOnLine
     int angle_ { 0 };
     int rotationTime_ { 5000 };
 
-    RoadController& roadController_;
+    RoadControler& roadControler_;
     bool vechicleOnLine_ { false };
     
     public:
-        PutVehicleOnLine( Detector& fDet, Detector& rDet, RoadController& controller ):
+        PutVehicleOnLine( Detector& fDet, Detector& rDet, RoadControler& controller ):
             frontDetector_( fDet ),
             rearDetector_( rDet ),
-            roadController_( controller ){};
+            roadControler_( controller ){};
         bool setOptimalPositionOnLine();
         bool isVehicleOnLine();
     private:

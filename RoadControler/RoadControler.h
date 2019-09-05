@@ -27,7 +27,7 @@ class RoadControler
 
 
     public:
-        RoadController( Encoder& left, Encoder& reight, TwoWheelDrive& dr ):
+        RoadControler( Encoder& left, Encoder& reight, TwoWheelDrive& dr ):
             _leftEncoder( left ),
             _rightEncoder( reight ),
             _drive( dr ){}

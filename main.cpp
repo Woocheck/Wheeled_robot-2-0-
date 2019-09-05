@@ -93,7 +93,7 @@ int main( void )
 
   if( isOn() )
   {
-    PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, Controler );
+    PutVehicleOnLine putOnLineController( frontLineDetector, rearLineDetector, roadControler );
     if( !putOnLineController.isVehicleOnLine() )
       putOnLineController.setOptimalPositionOnLine();
   }

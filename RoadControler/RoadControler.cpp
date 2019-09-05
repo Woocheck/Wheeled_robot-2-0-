@@ -2,7 +2,7 @@
 
 #include "./RoadControler.h"
 
-void RoadController::goByTimePeriod( const int& time, 
+void RoadControler::goByTimePeriod( const int& time, 
                     const int& speed, const int& angle )
 {
     _nominalSpeed = speed;
@@ -16,7 +16,7 @@ void RoadController::goByTimePeriod( const int& time,
 
 };
 
-void RoadController::go( const int& speed, const int& angle )
+void RoadControler::go( const int& speed, const int& angle )
 {
     _nominalSpeed = speed;
     _angle = angle;
@@ -24,12 +24,12 @@ void RoadController::go( const int& speed, const int& angle )
                               _nominalSpeed + _angle );
 }
 
-void RoadController::setTimePeriod( const int& time)
+void RoadControler::setTimePeriod( const int& time)
 {
     _timePeriod = time;
 };
 
-bool RoadController::isPeriodPassed()
+bool RoadControler::isPeriodPassed()
 {
     static MillisecondIntervalCounter rideInterval( _timePeriod );
     return rideInterval.isPased();;
