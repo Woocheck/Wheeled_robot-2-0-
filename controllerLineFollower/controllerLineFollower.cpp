@@ -13,9 +13,9 @@ int ControllerLineFollower::getSpeed()
 
 void ControllerLineFollower::setSensorsState( std::vector<int> sensorsToWrite )
 {
-   for( int i {0} ; i < 5 ; i++ )
+   for( int i { 0 } ; i < 5 ; i++ )
    {
-      if( sensorsToWrite[i] ) 
+      if( sensorsToWrite[ i ] ) 
         sensorsState.at( i ) = 0;
       else
         sensorsState.at( i ) = 1;
