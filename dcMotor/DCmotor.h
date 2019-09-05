@@ -16,7 +16,6 @@
 class Engine
 {
 	public:
-		virtual ~Engine();
 		virtual void control( int demandedSpeed ) = 0;
 };
 

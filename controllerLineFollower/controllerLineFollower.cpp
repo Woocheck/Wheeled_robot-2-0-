@@ -29,7 +29,7 @@ void ControllerLineFollower::calculateError()
 	
 	int importance = 10;						
 	
-	if( isOffTheRoad )	
+	if( isOfTheRoad )	 
 	    importance = 5;
 	
 	for( int i=0; i<5; i++ )
@@ -48,19 +48,19 @@ void ControllerLineFollower::calculateError()
 		if( previousError < -20 )	
 		{
 			errorValue = -40;	
-			offTheRoad = 1;
+			isOfTheRoad = 1;
 		}
 		else if( previousError > 20 )			
 		{
 			errorValue = 40;					
-			offTheRoad = 2;		
+			isOfTheRoad = 2;		
 		}
 		else
 			errorValue = 0;
 	}
 	
 	if( isOfTheRoad == 1 && errorValue >= 0 )	
-	  isOfTheRoadd = 0;
+	  isOfTheRoad = 0;
 	else if( isOfTheRoad == 2 && errorValue <= 0 )
 	  isOfTheRoad = 0;
 	
