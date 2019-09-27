@@ -25,7 +25,7 @@ class Profiler
 
     private:
         bool isNecessaryToBrake();
-        int calculateNextStepSeed() = 0;
+        virtual int calculateNextStepSeed() = 0;
         bool isReachedHisDestination();
 };
 
