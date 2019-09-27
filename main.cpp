@@ -44,7 +44,7 @@ bool isLineDetected();
 
 Gpio gpio;
 
-Detector frontLineDetector( gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
+Detector frontLineDetector(  gpio.frontSensor_1, gpio.frontSensor_2, gpio.frontSensor_3,
                        gpio.frontSensor_4, gpio.frontSensor_5 );
 Detector rearLineDetector( gpio.rearSensor_1, gpio.rearSensor_2, gpio.rearSensor_3,
                        gpio.rearSensor_4, gpio.rearSensor_5  );
