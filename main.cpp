@@ -4,8 +4,6 @@
  * Created: 14.03.2019 18:31:32
  * Author : Woocheck
 */
-
-
 #include <stdio.h>
 #include <iostream>
 #include <errno.h>
@@ -29,8 +27,6 @@
 #include "./timer/timer.h"
 #include "./putVehicleOnLine/putVehicleOnLine.h"
 #include "./RoadControler/RoadControler.h"
-
-
 
 void regulationInLineFollowerMode();
 void lookingForLineMode();
